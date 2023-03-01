@@ -5,12 +5,14 @@ public class Utilisateur {
     private String motDePasse;
     private String nom;
     private String prenom;
+    private int numeroTelephone;
 
-    public Utilisateur(String login, String motDePasse, String nom, String prenom) {
+    public Utilisateur(String login, String motDePasse, String nom, String prenom, int numeroTelephone) {
         this.login = login;
         this.motDePasse = motDePasse;
         this.nom = nom;
         this.prenom = prenom;
+        this.numeroTelephone = numeroTelephone;
     }
 
     public String getLogin() {
@@ -44,5 +46,15 @@ public class Utilisateur {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+    
+    public int getNumeroTelephone() {
+    	return numeroTelephone;
+    }
+    
+    public void setNumeroTelephone(int numeroTelephone) {
+    	this.numeroTelephone = numeroTelephone;
+    }
 }
+
+
 

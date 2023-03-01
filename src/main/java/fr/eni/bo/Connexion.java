@@ -46,7 +46,7 @@ public class Connexion {
         // Si un utilisateur est trouvé, on le connecte et on retourne true
         try {
 			if (result.next()) {
-			    utilisateurConnecte = new Utilisateur(result.getString("login"), result.getString("motDePasse"), result.getString("nom"), result.getString("prenom"));
+			    utilisateurConnecte = new Utilisateur(result.getString("login"), result.getString("motDePasse"), result.getString("nom"), result.getString("prenom"), result.getInt("numeroTelephone"));
 			    return true;
 			}
 		} catch (SQLException e) {
