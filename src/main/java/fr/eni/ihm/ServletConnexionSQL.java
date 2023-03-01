@@ -1,4 +1,4 @@
-package fr.eni.dal;
+package fr.eni.ihm;
 
 import java.io.IOException;
 import java.io.PrintWriter;
