@@ -25,8 +25,6 @@ public class SQLController {
         dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
     }
 
-    
-
     /**
      * Insère un utilisateur dans la base de données
      * @param pseudo
@@ -44,28 +42,39 @@ public class SQLController {
      * @throws SQLException
      */
     
-    private String hashPassword(String password, String salt) {
-    	String genererPassword = null;
-    	try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(salt.getBytes());
-			byte[] bytes = md.digest(password.getBytes());
-			StringBuilder sb = new StringBuilder();
-			
-			for (int i=0; i<bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-			}
-			
-			genererPassword = sb.toString();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+    public boolean insertUtilisateur(Utilisateur user) {
+    	final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     	
-		return genererPassword;
+    	try (Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+    		stmt.setString(1, user.getPseudo());
+    		stmt.setString(2, user.getNom());
+    		stmt.setString(3, user.getPrenom());
+    		stmt.setString(4, user.getEmail());
+    		stmt.setString(5, user.getTelephone());
+    		stmt.setString(6, user.getRue());
+    		stmt.setInt(7, user.getCp());
+    		stmt.setString(8, user.getVille());
+    		stmt.setString(9, user.getPassword());
+    		stmt.setInt(10, user.getCredit());
+    		stmt.setInt(11, user.getAdministrateur());
+    		stmt.executeUpdate();
+    		ResultSet rs = stmt.getGeneratedKeys();
+    		if (rs.next()) {
+				int id = rs.getInt(1);
+				user.setId(id);
+				user.setPassword(null);
+			}
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        	return false;
+        }
+    	
+        return true;
     }
     
 	public Utilisateur insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int credit, int administrateur) throws SQLException {
-		final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
     	
     	Utilisateur user = null;
     	SecureRandom srnd = new SecureRandom();
