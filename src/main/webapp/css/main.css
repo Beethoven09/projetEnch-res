@@ -1,86 +1,145 @@
-  /* Dégradé de couleurs pour le fond */ 
-body {
-  background: linear-gradient(to bottom right, #0066cc, #cc0000);
+/* Dégradé de couleurs pour le fond */
+header {
+	background-color: unset !important;
+	
 }
 
+body {
+	background: linear-gradient(45deg, #FC466B, #3F5EFB);
+	font-family: Arial, Helvetica, sans-serif;
+}
+/* Style pour les paragraphes */
+p {
+	color: Black;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+
+#header-connexion {
+	position: relative;
+	z-index: 1;
+}
+
+
 /* Style pour les liens */
-a {
-  color: white;
-  text-decoration: none;
+header div a {
+	color: White;
+	text-decoration: none;
+	transition: all .3s;
+}
+
+a{
+	text-decoration: underline;
 }
 
 /* Style pour les boutons */
 .btn-primary {
-  background: linear-gradient(to bottom right, #0066cc, #cc0000);
-  border-color: #cc0000;
+	background: linear-gradient(to bottom right, #0066cc, #cc0000);
+	border-color: #cc0000;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+
+.col-md-4 {
+	text-align: center;
+}
+
+input[type="text"] {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.buttonprimary {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-left: 10px;
 }
 
 /* Style pour les formulaires */
 .form-control {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-color: #cc0000;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-color: #cc0000;
 }
 
 /* Style pour les alertes */
 .alert {
-  background: #f8d7da;
-  border-color: #f5c6cb;
-  color: #721c24;
+	background: #f8d7da;
+	border-color: #f5c6cb;
+	color: #721c24;
 }
 
 /* Style pour les titres */
 h1, h2, h3 {
-  color: white;
+	color: White;
+	text-align: center;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 }
 
+h5 {
+	text-align: center;
+	color: White;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+h4{
+	color: White;
+	text-align: center;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	font-size: 2.5rem;
+	/*margin: 250px;*/
+}
+p{
+	color: Black;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	margin: 5px;
+	
+}
 /* Style pour les en-têtes de tableau */
 .table th {
-  background-color: #cc0000;
-  color: white;
+	background-color: #cc0000;
+	color: white;
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 }
 
 /* Style pour les pages de profil utilisateur */
 .profile {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 }
 
 /* Style pour les listes d'enchères */
 .auctions {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Style pour les pages de vente d'article */
 .sell-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Style pour les pages d'affichage de détails d'enchère */
 .auction-details {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-  
-.drop {
-    background: rgba(255, 255, 255, .3);
-    backdrop-filter: blur(10px);
-    position: absolute;
-    border-left: 1px solid rgba(255, 255, 255, .3);
-    border-top: 1px solid rgba(255, 255, 255, .3);
-    border-radius: 10px;
-    box-shadow: 10px, 10px, 60px, -8px rgba(o, 0, 0, .2)
-}
-
-
-
-   
