@@ -1,32 +1,44 @@
 package fr.eni.bo;
 
 public class Utilisateur {
+    private int id;
     private String pseudo;
     private String nom;
     private String prenom;
-	private String email;
-    private int numeroTelephone;
-	private String rue;
-	private int cp;
-	private String ville;
-	private String password;
-	private int credit;
-	private String administrateur;
+    private String email;
+    private String telephone;
+    private String rue;
+    private int cp;
+    private String ville;
+    private int credit;
+    private int administrateur;
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, int numeroTelephone, String rue, int cp, String ville, String password, int credit, String administrateur) {
+    public Utilisateur() {
+        // Default constructor
+    }
+
+    public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
+        this.id = id;
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.numeroTelephone = numeroTelephone;
+        this.telephone = telephone;
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
-        this.password = password;
         this.credit = credit;
         this.administrateur = administrateur;
-       
-        
+    }
+
+    // Getters et Setters 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPseudo() {
@@ -36,6 +48,7 @@ public class Utilisateur {
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
+
     public String getNom() {
         return nom;
     }
@@ -51,6 +64,7 @@ public class Utilisateur {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+
     public String getEmail() {
         return email;
     }
@@ -58,27 +72,31 @@ public class Utilisateur {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getnumeroTelephone() {
-        return numeroTelephone;
+
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setnumeroTelephone(int numeroTelephone) {
-        this.numeroTelephone = numeroTelephone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
-    public String rue() {
+
+    public String getRue() {
         return rue;
     }
 
     public void setRue(String rue) {
         this.rue = rue;
     }
-    public int getCP() {
+
+    public int getCp() {
         return cp;
     }
 
-    public void setCP(int cp) {
+    public void setCp(int cp) {
         this.cp = cp;
     }
+
     public String getVille() {
         return ville;
     }
@@ -87,13 +105,6 @@ public class Utilisateur {
         this.ville = ville;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
     public int getCredit() {
         return credit;
     }
@@ -101,16 +112,14 @@ public class Utilisateur {
     public void setCredit(int credit) {
         this.credit = credit;
     }
-    
-    public String getAdministrateur() {
+
+    public int getAdministrateur() {
         return administrateur;
     }
 
-    public void setAdministrateur(String administrateur) {
+    public void setAdministrateur(int administrateur) {
         this.administrateur = administrateur;
     }
- 
 }
-//pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur//
 
 
