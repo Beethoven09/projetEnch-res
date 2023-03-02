@@ -36,6 +36,7 @@ public class SQLController {
      * @param administrateur
      * @return
      * @throws SQLException
+     * 
      */
     
     public boolean insertUtilisateur(Utilisateur user) {
