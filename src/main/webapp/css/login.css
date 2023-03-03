@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background: linear-gradient(45deg, #FC466B, #3F5EFB);
+  background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF);
   height: 100vh;
   font-family: arial, sans-serif;
   display: flex;

@@ -22,7 +22,7 @@
 			<a href="#">Mot de passe oublié</a>
 		</form>
 		<div>
-		<a href="Inscription" class="btn btn-outline-primary btn-block w-75 ml-5 mt-2 btn-xl">Créer un compte</a>
+		<a href="inscription" class="btn btn-outline-primary btn-block w-75 ml-5 mt-2 btn-xl">Créer un compte</a>
 		</div>
 
 		<div class="drop drop-1"></div>

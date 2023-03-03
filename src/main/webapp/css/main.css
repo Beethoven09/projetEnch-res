@@ -5,15 +5,17 @@ header {
 }
 
 body {
-	background: linear-gradient(45deg, #FC466B, #3F5EFB);
+	background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF);
 	font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
-/* Style pour les paragraphes */
-p {
-	color: Black;
-	opacity: .7;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+ 
+#body{
+	background-color: rgba(255, 255, 255, .4);
+	width: 80%;
+	min-height: 100%;
 }
+
 
 #header-connexion {
 	position: relative;
@@ -23,13 +25,14 @@ p {
 
 /* Style pour les liens */
 header div a {
-	color: White;
+	color: black;
 	text-decoration: none;
 	transition: all .3s;
 }
 
 a{
 	text-decoration: underline;
+	color: #FF7377;
 }
 
 /* Style pour les boutons */
@@ -51,16 +54,6 @@ input[type="text"] {
 }
 
 
-.buttonprimary {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-left: 10px;
-}
-
 /* Style pour les formulaires */
 .form-control {
 	background-color: rgba(255, 255, 255, 0.8);
@@ -76,7 +69,7 @@ input[type="text"] {
 
 /* Style pour les titres */
 h1, h2, h3 {
-	color: White;
+	
 	text-align: center;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
@@ -84,12 +77,12 @@ h1, h2, h3 {
 
 h5 {
 	text-align: center;
-	color: White;
+	
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 }
 h4{
-	color: White;
+	
 	text-align: center;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
@@ -97,7 +90,6 @@ h4{
 	/*margin: 250px;*/
 }
 p{
-	color: Black;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 	margin: 5px;
@@ -106,7 +98,6 @@ p{
 /* Style pour les en-têtes de tableau */
 .table th {
 	background-color: #cc0000;
-	color: white;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 }
