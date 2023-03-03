@@ -7,16 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>ENI ENCHERES</title>
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css"> 
+  <link rel="stylesheet"
+	 href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
 </head>
 
 <body>
 	<header id="header-connexion">
 	<div class="text-right mr-2 mb-4 mt-1">
 			<!-- options utilisateur -->
-			<a href="#">S'inscrire</a> | <a href="#">Se connecter</a>
+			<a href="#">S'inscrire</a> | <a href="Connexion">Se connecter</a>
 		</div>
 
 		<h1>ENI-ENCHERES</h1>
