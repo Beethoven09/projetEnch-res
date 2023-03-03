@@ -39,6 +39,7 @@ public class SQLController {
      * 
      */
     
+    
     public boolean insertUtilisateur(Utilisateur user) {
     	final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     	

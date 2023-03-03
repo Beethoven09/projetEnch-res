@@ -1,12 +1,17 @@
-  /* Dégradé de couleurs pour le fond */ 
+ /* Dégradé de couleurs pour le fond */ 
 body {
-  background: linear-gradient(to bottom right, #0066cc, #cc0000);
+  background: linear-gradient(45deg, #FC466B, #3F5EFB);
+font-family: Arial, Helvetica, sans-serif;
+
+
 }
+
 
 /* Style pour les liens */
 a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
+  
 }
 
 /* Style pour les boutons */
@@ -19,6 +24,7 @@ a {
 .form-control {
   background-color: rgba(255, 255, 255, 0.8);
   border-color: #cc0000;
+  
 }
 
 /* Style pour les alertes */
@@ -29,10 +35,13 @@ a {
 }
 
 /* Style pour les titres */
-h1, h2, h3 {
-  color: white;
+h1, h2, h3{
+  color: Black;
+  text-align: center;
 }
-
+h5{
+	text-align: center;
+}
 /* Style pour les en-têtes de tableau */
 .table th {
   background-color: #cc0000;
@@ -70,17 +79,3 @@ h1, h2, h3 {
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-  
-.drop {
-    background: rgba(255, 255, 255, .3);
-    backdrop-filter: blur(10px);
-    position: absolute;
-    border-left: 1px solid rgba(255, 255, 255, .3);
-    border-top: 1px solid rgba(255, 255, 255, .3);
-    border-radius: 10px;
-    box-shadow: 10px, 10px, 60px, -8px rgba(o, 0, 0, .2)
-}
-
-
-
-   
