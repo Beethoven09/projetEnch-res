@@ -2,13 +2,13 @@ package fr.eni.bll;
 
 import java.time.LocalDateTime;
 
-import fr.eni.bo.Article;
+import fr.eni.bo.ArticleVendu;
 import fr.eni.bo.Utilisateur;
 import fr.eni.dal.SQLController;
 
 public class ArticleManager {
 
-	public Article ajouterArticle(String nom, String description, String categorie, int prixDepart, LocalDateTime dateOuverture, LocalDateTime dateFin, String adresseRetrait, Utilisateur vendeur) throws BLLException {
+	public ArticleVendu ajouterArticle(String nom, String description, String categorie, int prixDepart, LocalDateTime dateOuverture, LocalDateTime dateFin, String adresseRetrait, Utilisateur vendeur) throws BLLException {
 	    // Vérification de la validité des données
 	    if (nom == null || nom.trim().isEmpty()) {
 	        throw new BLLException("Le nom de l'article ne peut pas être vide");
@@ -33,7 +33,7 @@ public class ArticleManager {
 	    }
 
 	    // Insertion de l'article en base de données
-	    Article article = new Article(nom, description, categorie, prixDepart, dateOuverture, dateFin, adresseRetrait, vendeur);
+	    ArticleVendu article = new ArticleVendu(nom, description, categorie, prixDepart, dateOuverture, dateFin, adresseRetrait, vendeur);
 	    try {
 	        SQLController.getInstance().insertArticle(article);
 	    } catch (DALException e) {

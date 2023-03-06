@@ -3,32 +3,41 @@ package fr.eni.bo;
 import java.time.LocalDateTime;
 
 public class Enchere {
-    private Article article;
-    private Utilisateur utilisateur;
+    private int id;
+    private Utilisateur acheteur;
+    private ArticleVendu article;
     private LocalDateTime dateEnchere;
-    private int montant;
+    private int montantEnchere;
 
-    public Enchere(Article article, Utilisateur utilisateur, LocalDateTime dateEnchere, int montant) {
+    public Enchere(Utilisateur acheteur, ArticleVendu article, int montantEnchere) {
+        this.acheteur = acheteur;
         this.article = article;
-        this.utilisateur = utilisateur;
-        this.dateEnchere = dateEnchere;
-        this.montant = montant;
+        this.dateEnchere = LocalDateTime.now();
+        this.montantEnchere = montantEnchere;
     }
 
-    public Article getArticle() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Utilisateur getAcheteur() {
+        return acheteur;
+    }
+
+    public void setAcheteur(Utilisateur acheteur) {
+        this.acheteur = acheteur;
+    }
+
+    public ArticleVendu getArticle() {
         return article;
     }
 
-    public void setArticle(Article article) {
+    public void setArticle(ArticleVendu article) {
         this.article = article;
-    }
-
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
     }
 
     public LocalDateTime getDateEnchere() {
@@ -39,12 +48,12 @@ public class Enchere {
         this.dateEnchere = dateEnchere;
     }
 
-    public int getMontant() {
-        return montant;
+    public int getMontantEnchere() {
+        return montantEnchere;
     }
 
-    public void setMontant(int montant) {
-        this.montant = montant;
+    public void setMontantEnchere(int montantEnchere) {
+        this.montantEnchere = montantEnchere;
     }
-
 }
+

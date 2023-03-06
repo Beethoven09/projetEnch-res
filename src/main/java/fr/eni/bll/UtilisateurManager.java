@@ -11,13 +11,7 @@ public class UtilisateurManager {
 
 	private SQLController sqlController;
 
-	public UtilisateurManager() {
-		try {
-			this.sqlController = new SQLController();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	public boolean insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int credit, int administrateur) throws SQLException, NamingException {
     	SQLController sqlController = new SQLController();
@@ -29,7 +23,7 @@ public class UtilisateurManager {
     	        throw new IllegalArgumentException("Le pseudo est obligatoire.");
     	    } else if (!pseudo.matches("^[a-zA-Z0-9]*$")) {
     	        throw new IllegalArgumentException("Le pseudo ne doit contenir que des caractères alphanumériques.");
-    	    } else if (sqlController.ckeckIfEmailExist(email)) {
+    	    } else if (sqlController.ckeckIfPseudoExist(pseudo)) {
     	        throw new IllegalArgumentException("Ce pseudo est déjà utilisé.");
     	    }
 
