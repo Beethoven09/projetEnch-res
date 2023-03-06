@@ -121,17 +121,56 @@ public class SQLController {
 		}
     }
     
+    /**
+     * Vérifie si le pseudo est existant
+     * @param email
+     * @return
+     */
+    public boolean ckeckIfPseudoExist(String pseudo) {
+		final String REQUETE = "SELECT COUNT(*) AS nb FROM utilisateurs WHERE pseudo = ?";
+		
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(REQUETE);
+			stmt.setString(1, pseudo);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			if(rs.next()) {
+				int nb = rs.getInt(1);
+				if(nb > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+    
+    /**
+     * Vérifie si l'adresse email est existante
+     * @param email
+     * @return
+     */
     public boolean ckeckIfEmailExist(String email) {
-		final String REQUETE = "SELECT * FROM utilisateurs WHERE email = ?";
+		final String REQUETE = "SELECT COUNT(*) AS nb FROM utilisateurs WHERE email = ?";
 		
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setString(1, email);
-			if(stmt.execute()) {
-				System.out.println(stmt.getResultSet());
-				return true;
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			if(rs.next()) {
+				int nb = rs.getInt(1);
+				if(nb > 0) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				System.out.println("Une erreur est survenue lors de la recherche du compte par email. [EMAIL: " + email + "]");
 				return false;
 			}
 		} catch (SQLException e) {
