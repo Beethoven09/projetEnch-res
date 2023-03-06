@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.bll.UtilisateurManager;
 import fr.eni.dal.SQLController;
 
 /**
@@ -37,7 +38,7 @@ public class ServletTestUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			Utilisateur user = controller.insertUtilisateur("Sebsineat", "Rouillon", "Sébastien", "srouillon@icloud.com", "+33674611693", "1 rue de xxx", 12345, "Nantes", "Motdepasse", 0, 0);
+			UtilisateurManager.insertUtilisateur("Sebsineat", "Rouillon", "Sébastien", "srouillon@icloud.com", "+33674611693", "1 rue de xxx", 12345, "Nantes", "Motdepasse", 0, 0);
             request.setAttribute("User", user);
             request.getRequestDispatcher("/WEB-INF/jsp/testUtilisateur.jsp").forward(request, response);
         } catch (SQLException e) {
