@@ -1,0 +1,81 @@
+ /* Dégradé de couleurs pour le fond */ 
+body {
+  background: linear-gradient(45deg, #FC466B, #3F5EFB);
+font-family: Arial, Helvetica, sans-serif;
+
+
+}
+
+
+/* Style pour les liens */
+a {
+  color: #ffffff;
+  text-decoration: none;
+  
+}
+
+/* Style pour les boutons */
+.btn-primary {
+  background: linear-gradient(to bottom right, #0066cc, #cc0000);
+  border-color: #cc0000;
+}
+
+/* Style pour les formulaires */
+.form-control {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-color: #cc0000;
+  
+}
+
+/* Style pour les alertes */
+.alert {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* Style pour les titres */
+h1, h2, h3{
+  color: Black;
+  text-align: center;
+}
+h5{
+	text-align: center;
+}
+/* Style pour les en-têtes de tableau */
+.table th {
+  background-color: #cc0000;
+  color: white;
+}
+
+/* Style pour les pages de profil utilisateur */
+.profile {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style pour les listes d'enchères */
+.auctions {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style pour les pages de vente d'article */
+.sell-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style pour les pages d'affichage de détails d'enchère */
+.auction-details {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
