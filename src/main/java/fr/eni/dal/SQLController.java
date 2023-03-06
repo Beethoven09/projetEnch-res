@@ -16,6 +16,10 @@ public class SQLController {
 
     private static DataSource dataSource;
 
+    /**
+     * Initialise la connexion à la base de données
+     * @throws NamingException
+     */
     public SQLController() throws NamingException {
         Context context = new InitialContext();
         dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
@@ -23,23 +27,10 @@ public class SQLController {
 
     /**
      * Insère un utilisateur dans la base de données
-     * @param pseudo
-     * @param nom
-     * @param prenom
-     * @param email
-     * @param telephone
-     * @param rue
-     * @param cp
-     * @param ville
-     * @param password
-     * @param credit
-     * @param administrateur
-     * @return
-     * @throws SQLException
+     * @param user
+     * @return boolean
      * 
      */
-    
-    
     public boolean insertUtilisateur(Utilisateur user) {
     	final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     	
@@ -62,13 +53,90 @@ public class SQLController {
 				int id = rs.getInt(1);
 				user.setId(id);
 				user.setPassword(null);
+				return true;
+			} else {
+				System.out.println("Une erreur est survenue lors de la création du compte. [USER ID: " + stmt.getGeneratedKeys() + "]");
+				return false;
 			}
         } catch (SQLException e) {
         	e.printStackTrace();
         	return false;
         }
-    	
-        return true;
     }
     
+    /**
+     * Modifie un utilisateur. Pour modifier le mot de passe, utilisez la méthode {@code modifierPassword()}.
+     * @param user
+     * @return boolean
+     */
+    public boolean modifierUtilisateur(Utilisateur user) {
+    	final String UPDATE = "UPDATE INTO utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, cp = ?, ville = ?, credit = ?, administrateur = ?";
+    	
+    	try (Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(UPDATE);
+    		stmt.setString(1, user.getPseudo());
+    		stmt.setString(2, user.getNom());
+    		stmt.setString(3, user.getPrenom());
+    		stmt.setString(4, user.getEmail());
+    		stmt.setString(5, user.getTelephone());
+    		stmt.setString(6, user.getRue());
+    		stmt.setInt(7, user.getCp());
+    		stmt.setString(8, user.getVille());
+    		stmt.setInt(9, user.getCredit());
+    		stmt.setInt(10, user.getAdministrateur());
+    		if(stmt.execute()) {
+    			System.out.println(stmt.getResultSet());
+    			return true;
+    		} else {
+    			System.out.println("Une erreur est survenue lors de la modification du compte. [USER ID: " + user.getId() + "]");
+    			return false;
+    		}
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        	return false;
+        }
+    }
+    
+    /**
+     * Supprime un utilisateur.
+     * @param user
+     * @return
+     */
+    public boolean supprimerUtilisateur(Utilisateur user) {
+    	final String REQUETE = "DELETE FROM utilisateur WHERE id = ?";
+    	
+    	try (Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(REQUETE);
+    		stmt.setInt(1, user.getId());
+    		if(stmt.execute()) {
+    			System.out.println(stmt.getResultSet());
+    			return true;
+    		} else {
+    			System.out.println("Une erreur est survenue lors de la suppression du compte. [USER ID: " + user.getId() + "]");
+    			return false;
+    		}
+    	} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+    }
+    
+    public boolean ckeckIfEmailExist(String email) {
+		final String REQUETE = "SELECT * FROM utilisateurs WHERE email = ?";
+		
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(REQUETE);
+			stmt.setString(1, email);
+			if(stmt.execute()) {
+				System.out.println(stmt.getResultSet());
+				return true;
+			} else {
+				System.out.println("Une erreur est survenue lors de la recherche du compte par email. [EMAIL: " + email + "]");
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
