@@ -25,6 +25,7 @@ public class ServletTestUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			// Mise en mémoire serveur de l'user
 			Utilisateur user = new Utilisateur("Beto", "Beethoven", "Mirville", "exemple3@email.com", "+33612345678", "rue de truc", 12345, "Nantes", "motdepasse", 0, 0);
 			if(UtilisateurManager.insertUtilisateur(user)) {
 				request.setAttribute("User", user);
