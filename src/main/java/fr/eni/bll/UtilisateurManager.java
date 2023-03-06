@@ -50,7 +50,7 @@ public class UtilisateurManager {
     	        throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
     	    }
 
-    	    // Insertion de l'utilisateur en base de données
+    	    // Insertion de l'utilisateur en mémoire
     	    Utilisateur user = new Utilisateur (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur);
     	    SQLController sql = new SQLController();
     	    
@@ -58,7 +58,7 @@ public class UtilisateurManager {
 
 	}
 
-	public boolean modifierUtilisateur(Utilisateur utilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, Utilisateur user) throws SQLException {
+	public boolean modifierUtilisateur(Utilisateur user, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int administrateur) throws SQLException, NamingException {
 	    // Vérification de la validité des données
 	    if (!isValidPseudo(pseudo)) {
 	        throw new IllegalArgumentException("Le pseudo doit contenir uniquement des caractères alphanumériques.");
@@ -72,25 +72,21 @@ public class UtilisateurManager {
 	    if (!isValidPostalCode(cp)) {
 	        throw new IllegalArgumentException("Le code postal doit être composé de 5 chiffres.");
 	    }
-	    // Modification de l'utilisateur en base de données
-	    utilisateur.setPseudo(pseudo);
-	    utilisateur.setNom(nom);
-	    utilisateur.setPrenom(prenom);
-	    utilisateur.setEmail(email);
-	    utilisateur.setTelephone(telephone);
-	    utilisateur.setRue(rue);
-	    utilisateur.setCp(cp);
-	    utilisateur.setVille(ville);
-	    SQLController sql = null;
-		try {
-			sql = new SQLController();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+	    // Modification de l'utilisateur en mémoire
+	    user.setPseudo(pseudo);
+	    user.setNom(nom);
+	    user.setPrenom(prenom);
+	    user.setEmail(email);
+	    user.setTelephone(telephone);
+	    user.setRue(rue);
+	    user.setCp(cp);
+	    user.setVille(ville);
+	    user.setAdministrateur(administrateur);
+	    SQLController sql = new SQLController();
 	    return sql.modifierUtilisateur(user);
-	}
+		}
 
-	public boolean supprimerUtilisateur(Utilisateur user) throws BLLException {
+	public boolean supprimerUtilisateur(Utilisateur user) throws BLLException, NamingException{
 	    // Vérification de l'existence de l'utilisateur
 	    Utilisateur utilisateurBdd = UtilisateurManager.getUtilisateurById(user.getId());
 	    if (utilisateurBdd == null) {
@@ -102,17 +98,12 @@ public class UtilisateurManager {
 	        throw new BLLException("L'utilisateur a des articles en vente et ne peut pas être supprimé.");
 	    }
 	    
-	    SQLController sql = null;
-		try {
-			sql = new SQLController();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		};
+	    // BDD suppression stp
+	    SQLController sql = new SQLController();
 		sql.supprimerUtilisateur(user);
 		return true;
-	}
-
-	
+		}
+	        
 	//methodes
 
 		private static Utilisateur getUtilisateurById(int id) {

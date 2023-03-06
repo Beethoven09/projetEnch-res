@@ -10,14 +10,15 @@ public class Utilisateur {
     private String rue;
     private int cp;
     private String ville;
+    private String password;
     private int credit;
     private int administrateur;
 
-    public Utilisateur() {
+    public Utilisateur(String pseudo2, String nom2, String prenom2, String email2, String telephone2, String rue2, int cp2, String ville2, String password2, int credit2, int administrateur2) {
         // Default constructor
     }
 
-    public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
+    public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur, String password) {
         this.id = id;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -27,6 +28,7 @@ public class Utilisateur {
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
+        this.password = password;
         this.credit = credit;
         this.administrateur = administrateur;
     }
@@ -120,6 +122,14 @@ public class Utilisateur {
     public void setAdministrateur(int administrateur) {
         this.administrateur = administrateur;
     }
+
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
 
 

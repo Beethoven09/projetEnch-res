@@ -1,13 +1,9 @@
 package fr.eni.dal;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,80 +16,166 @@ public class SQLController {
 
     private static DataSource dataSource;
 
+    /**
+     * Initialise la connexion à la base de données
+     * @throws NamingException
+     */
     public SQLController() throws NamingException {
         Context context = new InitialContext();
         dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
     }
 
-    
-
     /**
      * Insère un utilisateur dans la base de données
-     * @param pseudo
-     * @param nom
-     * @param prenom
-     * @param email
-     * @param telephone
-     * @param rue
-     * @param cp
-     * @param ville
-     * @param password
-     * @param credit
-     * @param administrateur
-     * @return
-     * @throws SQLException
+     * @param user
+     * @return boolean
+     * 
      */
-    
-    private String hashPassword(String password, String salt) {
-    	String genererPassword = null;
-    	try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(salt.getBytes());
-			byte[] bytes = md.digest(password.getBytes());
-			StringBuilder sb = new StringBuilder();
-			
-			for (int i=0; i<bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-			}
-			
-			genererPassword = sb.toString();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-    	
-		return genererPassword;
-    }
-    
-	public Utilisateur insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int credit, int administrateur) throws SQLException {
-		final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    	
-    	Utilisateur user = null;
-    	SecureRandom srnd = new SecureRandom();
-    	byte[] salt = new byte[16];
-    	srnd.nextBytes(salt);
-    	String base64salt = Base64.getEncoder().encodeToString(salt);
-    	String hashedPassword = hashPassword(password, base64salt);
+    public boolean insertUtilisateur(Utilisateur user) {
+    	final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     	
     	try (Connection conn = dataSource.getConnection()) {
     		PreparedStatement stmt = conn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-    		stmt.setString(1, pseudo);
-    		stmt.setString(2, nom);
-    		stmt.setString(3, prenom);
-    		stmt.setString(4, email);
-    		stmt.setString(5, telephone);
-    		stmt.setString(6, rue);
-    		stmt.setInt(7, cp);
-    		stmt.setString(8, ville);
-    		stmt.setString(9, hashedPassword);
-    		stmt.setInt(10, credit);
-    		stmt.setInt(11, administrateur);
+    		stmt.setString(1, user.getPseudo());
+    		stmt.setString(2, user.getNom());
+    		stmt.setString(3, user.getPrenom());
+    		stmt.setString(4, user.getEmail());
+    		stmt.setString(5, user.getTelephone());
+    		stmt.setString(6, user.getRue());
+    		stmt.setInt(7, user.getCp());
+    		stmt.setString(8, user.getVille());
+    		stmt.setString(9, user.getPassword());
+    		stmt.setInt(10, user.getCredit());
+    		stmt.setInt(11, user.getAdministrateur());
     		stmt.executeUpdate();
     		ResultSet rs = stmt.getGeneratedKeys();
     		if (rs.next()) {
 				int id = rs.getInt(1);
-				user = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue, cp, ville, credit, administrateur);
+				user.setId(id);
+				user.setPassword(null);
+				return true;
+			} else {
+				System.out.println("Une erreur est survenue lors de la création du compte. [USER ID: " + stmt.getGeneratedKeys() + "]");
+				return false;
 			}
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        	return false;
         }
-        return user;
     }
+    
+    /**
+     * Modifie un utilisateur. Pour modifier le mot de passe, utilisez la méthode {@code modifierPassword()}.
+     * @param user
+     * @return boolean
+     */
+    public boolean modifierUtilisateur(Utilisateur user) {
+    	final String UPDATE = "UPDATE INTO utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, cp = ?, ville = ?, credit = ?, administrateur = ?";
+    	
+    	try (Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(UPDATE);
+    		stmt.setString(1, user.getPseudo());
+    		stmt.setString(2, user.getNom());
+    		stmt.setString(3, user.getPrenom());
+    		stmt.setString(4, user.getEmail());
+    		stmt.setString(5, user.getTelephone());
+    		stmt.setString(6, user.getRue());
+    		stmt.setInt(7, user.getCp());
+    		stmt.setString(8, user.getVille());
+    		stmt.setInt(9, user.getCredit());
+    		stmt.setInt(10, user.getAdministrateur());
+    		if(stmt.execute()) {
+    			System.out.println(stmt.getResultSet());
+    			return true;
+    		} else {
+    			System.out.println("Une erreur est survenue lors de la modification du compte. [USER ID: " + user.getId() + "]");
+    			return false;
+    		}
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        	return false;
+        }
+    }
+    
+    /**
+     * Supprime un utilisateur.
+     * @param user
+     * @return
+     */
+    public boolean supprimerUtilisateur(Utilisateur user) {
+    	final String REQUETE = "DELETE FROM utilisateur WHERE id = ?";
+    	
+    	try (Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(REQUETE);
+    		stmt.setInt(1, user.getId());
+    		if(stmt.execute()) {
+    			System.out.println(stmt.getResultSet());
+    			return true;
+    		} else {
+    			System.out.println("Une erreur est survenue lors de la suppression du compte. [USER ID: " + user.getId() + "]");
+    			return false;
+    		}
+    	} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+    }
+    
+    /**
+     * Vérifie si le pseudo est existant
+     * @param email
+     * @return
+     */
+    public boolean ckeckIfPseudoExist(String pseudo) {
+		final String REQUETE = "SELECT COUNT(*) AS nb FROM utilisateurs WHERE pseudo = ?";
+		
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(REQUETE);
+			stmt.setString(1, pseudo);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			if(rs.next()) {
+				int nb = rs.getInt(1);
+				if(nb > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+    
+    /**
+     * Vérifie si l'adresse email est existante
+     * @param email
+     * @return
+     */
+    public boolean ckeckIfEmailExist(String email) {
+		final String REQUETE = "SELECT COUNT(*) AS nb FROM utilisateurs WHERE email = ?";
+		
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(REQUETE);
+			stmt.setString(1, email);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			if(rs.next()) {
+				int nb = rs.getInt(1);
+				if(nb > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
