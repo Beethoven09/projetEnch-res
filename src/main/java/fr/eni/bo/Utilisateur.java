@@ -14,11 +14,24 @@ public class Utilisateur {
     private int credit;
     private int administrateur;
 
-    public Utilisateur(String pseudo2, String nom2, String prenom2, String email2, String telephone2, String rue2, int cp2, String ville2, String password2, int credit2, int administrateur2) {
-        // Default constructor
-    }
+    
 
-    public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur, String password) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp,
+			String ville, int credit, int administrateur) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.cp = cp;
+		this.ville = ville;
+		this.credit = credit;
+		this.administrateur = administrateur;
+	}
+
+	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
         this.id = id;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -28,7 +41,6 @@ public class Utilisateur {
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
-        this.password = password;
         this.credit = credit;
         this.administrateur = administrateur;
     }
