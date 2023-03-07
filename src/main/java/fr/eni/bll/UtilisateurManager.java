@@ -4,54 +4,66 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
+import fr.eni.bo.Password;
 import fr.eni.bo.Utilisateur;
-import fr.eni.dal.SQLController;
+import fr.eni.dal.UserDAO;
 
 public class UtilisateurManager {
 
-	private SQLController sqlController;
-
-	
-
-	public boolean insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int credit, int administrateur) throws SQLException, NamingException {
-    	SQLController sqlController = new SQLController();
+	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, int cp, String ville, String password, int credit) throws SQLException, NamingException {
+        
         // Vérification de la validité des données
-    	
-
-    	    // Vérification du pseudo
-    	    if (pseudo == null || pseudo.trim().isEmpty()) {
-    	        throw new IllegalArgumentException("Le pseudo est obligatoire.");
-    	    } else if (!pseudo.matches("^[a-zA-Z0-9]*$")) {
-    	        throw new IllegalArgumentException("Le pseudo ne doit contenir que des caractères alphanumériques.");
-    	    } else if (sqlController.ckeckIfPseudoExist(pseudo)) {
-    	        throw new IllegalArgumentException("Ce pseudo est déjà utilisé.");
-    	    }
-
-    	    // Vérification de l'email
-    	    if (email == null || email.trim().isEmpty()) {
-    	        throw new IllegalArgumentException("L'adresse email est obligatoire.");
-    	    } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-    	        throw new IllegalArgumentException("L'adresse email est invalide.");
-    	    } else if (sqlController.ckeckIfEmailExist(email)) {
-    	        throw new IllegalArgumentException("Cette adresse email est déjà utilisée.");
-    	    }
-
-
-    	    // Vérification du mot de passe
-    	    if (password == null || password.trim().isEmpty()) {
-    	        throw new IllegalArgumentException("Le mot de passe est obligatoire.");
-    	    } else if (password.length() < 8) {
-    	        throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
-    	    }
-
-    	    // Insertion de l'utilisateur en mémoire
-    	    Utilisateur user = new Utilisateur (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, credit, administrateur);
-    	    SQLController sql = new SQLController();
-    	    
-    	    return sql.insertUtilisateur(user);
-
-	}
-
+        
+        // Vérification du pseudo
+        if (pseudo == null || pseudo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le pseudo est obligatoire.");
+        } else if (!pseudo.matches("^[a-zA-Z0-9]*$")) {
+            throw new IllegalArgumentException("Le pseudo ne doit contenir que des caractères alphanumériques.");
+        }
+        
+        // Vérification de l'email
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("L'adresse email est obligatoire.");
+        } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            throw new IllegalArgumentException("L'adresse email est invalide.");
+        }
+        
+        // Vérification du mot de passe
+        if (password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le mot de passe est obligatoire.");
+        } else if (password.length() < 8) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
+        }
+        
+        // Initialisation de la connexion à la base de données
+        UserDAO sql = new UserDAO();
+        
+        // Si le pseudo existe
+        if (sql.ckeckIfPseudoExist(pseudo)) {
+            throw new IllegalArgumentException("Ce pseudo est déjà utilisé.");
+        }
+        
+        // Si le mail existe
+        if (sql.ckeckIfEmailExist(email)) {
+            throw new IllegalArgumentException("Cette adresse email est déjà utilisée.");
+        }
+        
+        // On génère le mot de passe + on récupère le salt
+        String passwordBuilder = Password.genererPassword(password);
+        String pass = passwordBuilder.split(";")[0];
+        String salt = passwordBuilder.split(";")[1];
+        
+        // On construit l'utilisateur
+        Utilisateur user = new Utilisateur(pseudo, prenom, nom, email, telephone, rue, cp, ville, credit, 0);
+        
+        // Insertion de l'utilisateur en base de données
+        if(sql.insertUtilisateur(user, pass, salt)) {
+            return user;
+        } else {
+            throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD.");
+        }
+        
+    }
 	public boolean modifierUtilisateur(Utilisateur user, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int administrateur) throws SQLException, NamingException {
 	    // Vérification de la validité des données
 	    if (!isValidPseudo(pseudo)) {
@@ -76,7 +88,7 @@ public class UtilisateurManager {
 	    user.setCp(cp);
 	    user.setVille(ville);
 	    user.setAdministrateur(administrateur);
-	    SQLController sql = new SQLController();
+	    UserDAO sql = new UserDAO();
 	    return sql.modifierUtilisateur(user);
 		}
 
@@ -93,7 +105,7 @@ public class UtilisateurManager {
 	    }
 	    
 	    // BDD suppression stp
-	    SQLController sql = new SQLController();
+	    UserDAO sql = new UserDAO();
 		sql.supprimerUtilisateur(user);
 		return true;
 		}

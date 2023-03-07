@@ -29,11 +29,11 @@ public class ArticleManager {
 	        throw new BLLException("L'adresse de retrait ne peut pas être vide");
 	    }
 	    if (vendeur == null) {
-	        throw new BLLException("Le vendeur ne peut pas être nul");
+	        throw new BLLException("Le vendeur ne peut pas être null");
 	    }
 
 	    // Insertion de l'article en base de données
-	    ArticleVendu article = new ArticleVendu(nom, description, categorie, prixDepart, dateOuverture, dateFin, adresseRetrait, vendeur);
+	    ArticleVendu article = new ArticleVendu();
 	    try {
 	        SQLController.getInstance().insertArticle(article);
 	    } catch (DALException e) {

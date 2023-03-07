@@ -11,6 +11,7 @@ public class ArticleVendu {
     private int miseAPrix;
     private int prixVente;
     private String etatVente;
+    private Utilisateur vendeur;
 
     // Constructeurs
     public ArticleVendu() {}
@@ -91,4 +92,12 @@ public class ArticleVendu {
     public void setEtatVente(String etatVente) {
         this.etatVente = etatVente;
     }
+
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
+	}
 }
