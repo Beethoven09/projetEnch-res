@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Connexion</title>
 <link rel="stylesheet"
 	 href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="css/login.css">
@@ -15,14 +15,15 @@
 	<div class="container">
 		<form>
 			<h1>ENI-Enchères</h1>
-			<input type="email" placeholder="Email"><br>
-			<input type="password" placeholder="Mot de passe"><br>
-			<input type="button" value="Connexion"> 
+			<input type="email" placeholder="Email" required><br>
+			<input type="password" placeholder="Mot de passe" required><br>
+			<input type="button" value="Connexion">
 			<input type="checkbox" name="remember"> Se souvenir de moi<br>
-			<a href="#">Mot de passe oublié</a>
+			<a href="MotDePasseOublié">Mot de passe oublié</a>
 		</form>
 		<div>
 		<a href="inscription" class="btn btn-outline-primary btn-block w-75 ml-5 mt-2 btn-xl">Créer un compte</a>
+		
 		</div>
 
 		<div class="drop drop-1"></div>
