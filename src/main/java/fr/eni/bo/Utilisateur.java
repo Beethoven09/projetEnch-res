@@ -10,7 +10,6 @@ public class Utilisateur {
     private String rue;
     private int cp;
     private String ville;
-    private String password;
     private int credit;
     private int administrateur;
 
@@ -25,12 +24,10 @@ public class Utilisateur {
 	 * @param rue
 	 * @param cp
 	 * @param ville
-	 * @param password
 	 * @param credit
 	 * @param administrateur
 	 */
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp,
-			String ville, String password, int credit, int administrateur) {
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -39,12 +36,11 @@ public class Utilisateur {
 		this.rue = rue;
 		this.cp = cp;
 		this.ville = ville;
-		this.password = password;
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
 
-	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur, String password) {
+	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
         this.id = id;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -54,7 +50,6 @@ public class Utilisateur {
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
-        this.password = password;
         this.credit = credit;
         this.administrateur = administrateur;
     }
@@ -152,14 +147,6 @@ public class Utilisateur {
     public void setAdministrateur(int administrateur) {
         this.administrateur = administrateur;
     }
-
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }
 
 

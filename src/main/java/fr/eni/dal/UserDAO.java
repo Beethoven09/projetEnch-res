@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 import fr.eni.bo.Utilisateur;
 
-public class SQLController {
+public class UserDAO {
 
     protected static DataSource dataSource;
 
@@ -20,7 +20,7 @@ public class SQLController {
      * Initialise la connexion à la base de données
      * @throws NamingException
      */
-    public SQLController() throws NamingException {
+    public UserDAO() throws NamingException {
         Context context = new InitialContext();
         dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
     }
@@ -80,8 +80,8 @@ public class SQLController {
      * 
      */
     public boolean insertUtilisateur(Utilisateur user, String password, String salt) {
-    	final String REQUETE = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, salt, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    	
+    	final String REQUETE = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, salt, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     	try (Connection conn = dataSource.getConnection()) {
     		PreparedStatement stmt = conn.prepareStatement(REQUETE, PreparedStatement.RETURN_GENERATED_KEYS);
     		stmt.setString(1, user.getPseudo());
@@ -94,8 +94,8 @@ public class SQLController {
     		stmt.setString(8, user.getVille());
     		stmt.setString(9, password);
     		stmt.setString(10, salt);
-    		stmt.setInt(10, user.getCredit());
-    		stmt.setInt(11, user.getAdministrateur());
+    		stmt.setInt(11, user.getCredit());
+    		stmt.setInt(12, user.getAdministrateur());
     		stmt.executeUpdate();
     		ResultSet rs = stmt.getGeneratedKeys();
     		if (rs.next()) {
@@ -103,12 +103,11 @@ public class SQLController {
 				user.setId(id);
 				return true;
 			} else {
-				System.out.println("Une erreur est survenue lors de la création du compte. [USER ID: " + stmt.getGeneratedKeys() + "]");
-				return false;
+				throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD. ligne 107");
 			}
         } catch (SQLException e) {
         	e.printStackTrace();
-        	return false;
+        	throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD : " + e);
         }
     }
     
