@@ -2,6 +2,8 @@ package fr.eni.bo;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 public class Password {
     
@@ -12,7 +14,8 @@ public class Password {
      * @param salt le sel à utiliser pour le hash
      * @return le mot de passe hashé
      */
-    public static String hashPassword(String password, String salt) {
+
+    private static String hashPassword(String password, String salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -28,5 +31,21 @@ public class Password {
         }
         return generatedPassword;
     }
+    
+	/**
+	 * Permet de générer un mot de passer crypté.
+	 * @param password
+	 * @return password;hash
+	 */
+    public static String genererPassword(String password) {
+        
+        SecureRandom srnd = new SecureRandom();
+        byte[] salt = new byte[16];
+        srnd.nextBytes(salt);
+        String base64salt = Base64.getEncoder().encodeToString(salt);
+        String hashedPassword = hashPassword(password, base64salt);
+        return hashedPassword + ";" + base64salt;
+    }
+
 }
 
