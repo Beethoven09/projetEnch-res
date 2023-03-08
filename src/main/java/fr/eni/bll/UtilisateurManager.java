@@ -6,24 +6,11 @@ import javax.naming.NamingException;
 
 import fr.eni.bo.Password;
 import fr.eni.bo.Utilisateur;
-import fr.eni.dal.SQLController;
 import fr.eni.dal.UserDAO;
 
 public class UtilisateurManager {
 
-	/*private SQLController sqlController;
-
-	public UtilisateurManager() {
-		try {
-			this.sqlController = new SQLController();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
 	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, int cp, String ville, String password, int credit) throws SQLException, NamingException {
-
-		// Vérification de la validité des données
 
 		// Vérification du pseudo
 		if (pseudo == null || pseudo.trim().isEmpty()) {
@@ -68,7 +55,7 @@ public class UtilisateurManager {
 		Utilisateur user = new Utilisateur(pseudo, prenom, nom, email, telephone, rue, cp, ville, credit, 0);
 
 		// Insertion de l'utilisateur en base de données
-		if(sql.insertUtilisateur(user, pass, salt)) {
+		if(sql.add(user, pass, salt)) {
 			return user;
 		} else {
 			throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD.");
@@ -92,8 +79,8 @@ public class UtilisateurManager {
 		}
 
 		// Modification de l'utilisateur en mémoire
-		SQLController sql = new SQLController();
-		if(sql.modifierUtilisateur(user)) {
+		UserDAO sql = new UserDAO();
+		if(sql.update(user)) {
 			user.setPseudo(pseudo);
 			user.setNom(nom);
 			user.setPrenom(prenom);
@@ -118,14 +105,14 @@ public class UtilisateurManager {
 			throw new BLLException("L'utilisateur n'existe pas.");
 		}
 
-		// Vérification de la suppression des clés étrangères
+		// TODO : Vérification de la suppression des clés étrangères
 		/*if (!ArticleManager.articlesEnVenteParUtilisateur(user).isEmpty()) {
 	        throw new BLLException("L'utilisateur a des articles en vente et ne peut pas être supprimé.");
 	    }*/
 
 		// BDD suppression stp
-		SQLController sql = new SQLController();
-		sql.supprimerUtilisateur(user);
+		UserDAO sql = new UserDAO();
+		sql.delete(user);
 		return true;
 	}
 

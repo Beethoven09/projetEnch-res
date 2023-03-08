@@ -8,18 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletAppTest
+ * Servlet implementation class MotDePasseOublié
  */
-@WebServlet("/ServletAppTest")
-public class ServletAppTest extends HttpServlet {
+@WebServlet("/MotDePasseOublié")
+public class ServletMotDePasseOublie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/AppTest.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/jsp/MotDePasseOublié.jsp").forward(request, response);
+
 	}
 
 	/**

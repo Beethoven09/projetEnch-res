@@ -26,13 +26,12 @@ public class UserDAO {
     }
     
     /**
-     * Récupère un ID en fonction d'un pseudo
+     * Retourne un ID en fonction d'un pseudo
      * @param pseudo
      * @return id
      */
-    public int getUserIdByPseudo(String pseudo) {
+    public int getIdByPseudo(String pseudo) {
     	final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ?";
-    	int id = 0;
     	
     	try(Connection conn = dataSource.getConnection()) {
     		PreparedStatement stmt = conn.prepareStatement(REQUETE);
@@ -40,13 +39,36 @@ public class UserDAO {
     		stmt.executeUpdate();
     		ResultSet rs = stmt.getResultSet();
     		if(rs.next()) {
-    			id = rs.getInt(1);
+    			return rs.getInt(1);
     		}
     	} catch (SQLException e) {
 			e.printStackTrace();
 		}
     	
-		return id;
+		return 0;
+    }
+    
+    /**
+     * Retourne un ID en fonction d'un email
+     * @param email
+     * @return id
+     */
+    public int getIdByEmail(String email) {
+    	final String REQUETE = "SELECT id FROM utilisateurs WHERE email = ?";
+    	
+    	try(Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(REQUETE);
+    		stmt.setString(1, email);
+    		stmt.executeUpdate();
+    		ResultSet rs = stmt.getResultSet();
+    		if(rs.next()) {
+    			return rs.getInt(1);
+    		}
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+		return 0;
     }
     
     /**
@@ -54,7 +76,7 @@ public class UserDAO {
      * @param id
      * @return password
      */
-    public String getUserPasswordById(int id) {
+    public String getPasswordById(int id) {
     	final String REQUETE = "SELECT password FROM utilisateurs WHERE id = ?";
     	String password = null;
     	
@@ -79,7 +101,7 @@ public class UserDAO {
      * @return boolean
      * 
      */
-    public boolean insertUtilisateur(Utilisateur user, String password, String salt) {
+    public boolean add(Utilisateur user, String password, String salt) {
     	final String REQUETE = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, cp, ville, password, salt, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     	try (Connection conn = dataSource.getConnection()) {
@@ -103,7 +125,7 @@ public class UserDAO {
 				user.setId(id);
 				return true;
 			} else {
-				throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD. ligne 107");
+				throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD.");
 			}
         } catch (SQLException e) {
         	e.printStackTrace();
@@ -116,7 +138,7 @@ public class UserDAO {
      * @param user
      * @return boolean
      */
-    public boolean modifierUtilisateur(Utilisateur user) {
+    public boolean update(Utilisateur user) {
     	final String REQUETE = "UPDATE INTO utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, cp = ?, ville = ?, credit = ?, administrateur = ?";
     	
     	try (Connection conn = dataSource.getConnection()) {
@@ -136,12 +158,31 @@ public class UserDAO {
     			return true;
     		} else {
     			System.out.println("Une erreur est survenue lors de la modification du compte. [USER ID: " + user.getId() + "]");
-    			return false;
+    			throw new IllegalArgumentException("Une erreur est survenue lors de la modification de l'utilisateur dans la BDD.");
     		}
         } catch (SQLException e) {
         	e.printStackTrace();
-        	return false;
+        	throw new IllegalArgumentException("Une erreur est survenue lors de la modification de l'utilisateur dans la BDD : " + e);
         }
+    }
+    
+    public boolean update(Utilisateur user, String password) {
+    	final String REQUETE = "UPDATE utilisateurs SET password = ? WHERE id = ?";
+    	
+    	try(Connection conn = dataSource.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement(REQUETE);
+    		stmt.setString(1, password);
+    		stmt.setInt(2, user.getId());
+    		if(stmt.execute()) {
+    			return true;
+    		} else {
+    			throw new IllegalArgumentException("Une erreur est survenue lors de la modification du mot de passe dans la BDD.");
+    		}
+    		
+    	} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Une erreur est survenue lors de la modification du mot de passe dans la BDD : " + e);
+		}
     }
     
     /**
@@ -149,7 +190,7 @@ public class UserDAO {
      * @param user
      * @return boolean
      */
-    public boolean supprimerUtilisateur(Utilisateur user) {
+    public boolean delete(Utilisateur user) {
     	final String REQUETE = "DELETE FROM utilisateur WHERE id = ?";
     	
     	try (Connection conn = dataSource.getConnection()) {
@@ -159,8 +200,7 @@ public class UserDAO {
     			System.out.println(stmt.getResultSet());
     			return true;
     		} else {
-    			System.out.println("Une erreur est survenue lors de la suppression du compte. [USER ID: " + user.getId() + "]");
-    			return false;
+    			throw new IllegalArgumentException("Une erreur est survenue lors de la suppression de l'utilisateur dans la BDD.");
     		}
     	} catch (SQLException e) {
 			e.printStackTrace();
