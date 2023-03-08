@@ -46,4 +46,8 @@ public class ArticleManager {
 		return null;
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/heads/master

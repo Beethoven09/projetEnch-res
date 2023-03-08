@@ -100,7 +100,11 @@ public class ArticleVendu {
 	public void setVendeur(Utilisateur vendeur) {
 		this.vendeur = vendeur;
 	}
+<<<<<<< HEAD
 
 	
 }
 
+=======
+}
+>>>>>>> refs/heads/master

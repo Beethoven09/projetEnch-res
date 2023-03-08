@@ -3,10 +3,14 @@ package fr.eni.bll;
 
 public class BLLException extends Exception {
     
+<<<<<<< HEAD
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+=======
+    private static final long serialVersionUID = 1L;
+>>>>>>> refs/heads/master
 
 	public BLLException(String message) {
         super(message);
