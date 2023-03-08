@@ -1,4 +1,4 @@
-package fr.eni.dal.ArticleVenduDAOImpl;
+package fr.eni.dal;
 
 import java.sql.Connection;
 import java.sql.Date;
