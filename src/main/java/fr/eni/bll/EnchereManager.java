@@ -1,56 +1,78 @@
 package fr.eni.bll;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import fr.eni.bo.ArticleVendu;
-import fr.eni.bo.Enchere;
-import fr.eni.dal.DALException;
-import fr.eni.dal.DAOFactory;
-
+import fr.eni.bo.EtatVente;
+import fr.eni.bo.Utilisateur;
 
 public class EnchereManager {
-	// TODO : Le code suivant comporte est en cours, celui-ci peut comporter des erreurs
-    private EnchereDAO enchereDAO;
-    
-    public EnchereManager() {
-        enchereDAO = DAOFactory.getEnchereDAO();
+
+    private LocalDateTime dateEnchere;
+    private int montantEnchere;
+    private Utilisateur utilisateur;
+    private ArticleVendu article;
+
+    public EnchereManager(Utilisateur utilisateur, ArticleVendu article, int montantEnchere) {
+        this.dateEnchere = LocalDateTime.now();
+        this.utilisateur = utilisateur;
+        this.article = article;
+        this.montantEnchere = montantEnchere;
     }
-    
-    public Enchere addEnchere(Enchere enchere) throws BLLException {
-        try {
-            enchere = enchereDAO.insert(enchere);
-        } catch (DALException e) {
-            throw new BLLException("Une erreur est survenue lors de l'ajout de l'enchère.", e);
+
+    public void encherir(Utilisateur acheteur, int prix) throws BLLException {
+        // Vérification que l'article est en vente
+        if (article.getEtatVente() != EtatVente.EN_VENTE) {
+            throw new BLLException("Cet article n'est pas en vente.");
         }
-        return enchere;
-    }
-    
-    public void removeEnchere(Enchere enchere) throws BLLException {
-        try {
-            enchereDAO.delete(enchere);
-        } catch (DALException e) {
-            throw new BLLException("Une erreur est survenue lors de la suppression de l'enchère.", e);
+
+        // Vérification que le prix proposé est supérieur au prix de l'enchère actuelle
+        if (montantEnchere > 0 && prix <= montantEnchere) {
+            throw new BLLException("Le prix proposé est inférieur ou égal au prix de l'enchère actuelle.");
         }
+
+        // Création de la nouvelle enchère
+        EnchereManager nouvelleEnchere = new EnchereManager(acheteur, article, prix);
+
+        // Mise à jour de l'article et de l'enchère associée
+        article.setEtatVente(EtatVente.EN_COURS);
+        this.montantEnchere = prix;
+        this.dateEnchere = LocalDateTime.now();
+        this.utilisateur = acheteur;
     }
-    
-    public List<Enchere> getEncheresByArticle(ArticleVendu article) throws BLLException {
-        List<Enchere> encheres;
-        try {
-            encheres = enchereDAO.selectByArticle(article);
-        } catch (DALException e) {
-            throw new BLLException("Une erreur est survenue lors de la récupération des enchères associées à l'article.", e);
-        }
-        return encheres;
-    }
-    
-    public Enchere getEnchereWithMaxMontant(ArticleVendu article) throws BLLException {
-        Enchere enchere;
-        try {
-            enchere = enchereDAO.selectWithMaxMontant(article);
-        } catch (DALException e) {
-            throw new BLLException("Une erreur est survenue lors de la récupération de l'enchère avec le montant maximum.", e);
-        }
-        return enchere;
-    }
+
+	public LocalDateTime getDateEnchere() {
+		return dateEnchere;
+	}
+
+	public void setDateEnchere(LocalDateTime dateEnchere) {
+		this.dateEnchere = dateEnchere;
+	}
+
+	public int getMontantEnchere() {
+		return montantEnchere;
+	}
+
+	public void setMontantEnchere(int montantEnchere) {
+		this.montantEnchere = montantEnchere;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public ArticleVendu getArticle() {
+		return article;
+	}
+
+	public void setArticle(ArticleVendu article) {
+		this.article = article;
+	}
+
+   
 }
 

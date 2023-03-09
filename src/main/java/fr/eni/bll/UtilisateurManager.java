@@ -56,12 +56,13 @@ public class UtilisateurManager {
 		// On construit l'utilisateur
 		Utilisateur user = new Utilisateur(pseudo, prenom, nom, email, telephone, rue, cp, ville, 0, 0);
 
-		// Insertion de l'utilisateur en base de données
+		// Insertion de l'utilisateur en BDD
 		if(sql.add(user, pass, salt)) {
 			return user;
 		} else {
 			throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD.");
 		}
+
 	}
 
 
@@ -95,10 +96,9 @@ public class UtilisateurManager {
 
 			return true;
 		} else {
-			throw new IllegalArgumentException("Une erreur est survenur lors de la modification de l'utilisateur dans la base de données.");
+			throw new IllegalArgumentException("Une erreur est survenue lors de la modification de l'utilisateur dans la base de données.");
 		}
 
-		//return sql.modifierUtilisateur(user);
 	}
 
 
@@ -115,8 +115,6 @@ public class UtilisateurManager {
 
 		// BDD suppression stp
 		UserDAO sql = new UserDAO();
-
-		//sql.supprimerUtilisateur(user);
 
 		sql.delete(user);
 		return true;
