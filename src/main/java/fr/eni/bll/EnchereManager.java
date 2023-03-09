@@ -1,4 +1,4 @@
-package fr.eni.bo;
+package fr.eni.bll;
 
 import java.time.LocalDateTime;
 
@@ -6,14 +6,14 @@ import fr.eni.bo.ArticleVendu;
 import fr.eni.bo.EtatVente;
 import fr.eni.bo.Utilisateur;
 
-public class Enchere {
+public class EnchereManager {
 
     private LocalDateTime dateEnchere;
     private int montantEnchere;
     private Utilisateur utilisateur;
     private ArticleVendu article;
 
-    public Enchere(Utilisateur utilisateur, ArticleVendu article, int montantEnchere) {
+    public EnchereManager(Utilisateur utilisateur, ArticleVendu article, int montantEnchere) {
         this.dateEnchere = LocalDateTime.now();
         this.utilisateur = utilisateur;
         this.article = article;
@@ -32,7 +32,7 @@ public class Enchere {
         }
 
         // Création de la nouvelle enchère
-        Enchere nouvelleEnchere = new Enchere(acheteur, article, prix);
+        EnchereManager nouvelleEnchere = new EnchereManager(acheteur, article, prix);
 
         // Mise à jour de l'article et de l'enchère associée
         article.setEtatVente(EtatVente.EN_COURS);

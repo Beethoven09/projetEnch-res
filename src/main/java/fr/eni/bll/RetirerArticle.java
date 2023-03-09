@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.eni.bo.ArticleVendu;
 import fr.eni.bo.Enchere;
+import fr.eni.bo.EtatVente;
 import fr.eni.bo.Utilisateur;
 import fr.eni.dal.DALException;
 
