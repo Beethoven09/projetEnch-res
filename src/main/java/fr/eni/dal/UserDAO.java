@@ -74,7 +74,7 @@ public class UserDAO {
 	 * @param id
 	 * @return password
 	 */
-	public String getPasswordById(int id) {
+	public String getPassword(int id) {
 		final String REQUETE = "SELECT password FROM utilisateurs WHERE id = ?";
 		String password = null;
 
