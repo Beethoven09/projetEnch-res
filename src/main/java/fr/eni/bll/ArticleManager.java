@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 import fr.eni.bo.ArticleVendu;
 import fr.eni.bo.Utilisateur;
-import fr.eni.dal.DALException;
 import fr.eni.dal.ArticleVenduDAO;
+import fr.eni.dal.DALException;
 import fr.eni.dal.UserDAO;
 
 public class ArticleManager {
