@@ -26,7 +26,6 @@ public class UserDAO {
     }
     
     /**
-<<<<<<< HEAD
      * Récupère un ID en fonction d'un pseudo
      * @param pseudo
      * @return id
@@ -162,7 +161,8 @@ public class UserDAO {
     		} else {
     			System.out.println("Une erreur est survenue lors de la suppression du compte. [USER ID: " + user.getId() + "]");
     			return false;
-=======
+    		
+     /**		
      * Retourne un ID en fonction d'un pseudo
      * @param pseudo
      * @return id

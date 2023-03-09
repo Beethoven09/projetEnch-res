@@ -9,7 +9,7 @@ import fr.eni.dal.DALException;
 
 public class RetirerArticle{
 
-	// TODO : Le code suivant comporte est en cours, celui-ci peut comporter des erreurs
+	// TODO : Le code suivant est en cours, celui-ci peut comporter des erreurs
 	
     public void retirerArticle(ArticleVendu article, Utilisateur vendeur) throws BLLException {
        

@@ -1,6 +1,7 @@
 package fr.eni.bll;
 
 import fr.eni.bo.Enchere;
+import fr.eni.bo.EtatVente;
 import fr.eni.bo.Utilisateur;
 import fr.eni.bo.ArticleVendu;
 

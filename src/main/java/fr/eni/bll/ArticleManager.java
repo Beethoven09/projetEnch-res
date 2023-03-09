@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import fr.eni.bo.ArticleVendu;
 import fr.eni.bo.Utilisateur;
 import fr.eni.dal.DALException;
-import fr.eni.dal.SQLController;
+import fr.eni.dal.ArticleVenduDAO;
 import fr.eni.dal.UserDAO;
 
 public class ArticleManager {
@@ -37,7 +37,7 @@ public class ArticleManager {
 	    // Insertion de l'article en base de données
 	    ArticleVendu article = new ArticleVendu();
 	    try {
-	        UserDAO.getInstance().insertArticle(article);
+	        ArticleVenduDAO.get().insertArticle(article);
 	    } catch (DALException e) {
 	        throw new BLLException("Erreur lors de l'insertion de l'article en base de données", e);
 	    }
