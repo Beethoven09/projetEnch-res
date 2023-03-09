@@ -8,7 +8,7 @@ import fr.eni.dal.ArticleVenduDAO;
 import fr.eni.dal.DALException;
 import fr.eni.dal.UserDAO;
 
-public class ArticleManager {
+public class ArticleVenduManager {
 
 	public ArticleVendu ajouterArticle(String nom, String description, String categorie, int prixDepart, LocalDateTime dateOuverture, LocalDateTime dateFin, String adresseRetrait, Utilisateur vendeur) throws BLLException {
 		// Vérification de la validité des données
@@ -36,17 +36,12 @@ public class ArticleManager {
 
 		// Insertion de l'article en mémoire
 		ArticleVendu article = new ArticleVendu();
-		try {
-			ArticleVenduDAO sql = new ArticleVenduDAO();
-			if (sql.add (article)) {
-				return article;
-			}
-			else {
-				throw new BLLException("Erreur lors de l'insertion de l'article en base de données");
-			}
-
-		} catch (DALException e) {
-			throw new BLLException("Erreur lors de l'insertion de l'article en base de données", e);
+		ArticleVenduDAO sql = new ArticleVenduDAO();
+		if (sql.add (article)) {
+			return article;
+		}
+		else {
+			throw new BLLException("Erreur lors de l'insertion de l'article en base de données");
 		}
 	}
 

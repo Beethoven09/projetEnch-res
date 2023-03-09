@@ -26,11 +26,46 @@ public class UserDAO {
 	}
 
 
+	public String getUser(int idUser) {
+		final String REQUETE = "SELECT id, pseudo, nom, prenom, email, telephone, rue, cp, ville, credit, administrateur FROM utilisateurs WHERE id = ?";
+
+		String user = null;
+		try(Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(REQUETE);
+			stmt.setInt(1, idUser);
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getResultSet();
+			if(rs.next()) {
+				int id = rs.getInt(1);
+				String pseudo = rs.getString(2);
+				String nom = rs.getString(3);
+				String prenom = rs.getString(4);
+				String email = rs.getString(5);
+				String tel = rs.getString(6);
+				String rue = rs.getString(7);
+				int cp = rs.getInt(8);
+				String ville = rs.getString(9);
+				int credit = rs.getInt(10);
+				int administrateur = rs.getInt(11);
+
+				user = id+","+pseudo+","+nom+","+prenom+","+email+","+tel+","+rue+","+cp+","+ville+","+credit+","+administrateur;
+
+			} else {
+				throw new IllegalArgumentException("Une erreur est survenue lors de la récupération de l'utilisateur dans la BDD.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Une erreur est survenue lors de la récupération de l'utilisateur dans la BDD : " + e);
+		}
+		return user;
+	}
+
 	/**			
 	 * Retourne un ID en fonction d'un pseudo
 	 * @param pseudo
 	 * @return id
 	 */
+
 	public int getId(String login) {
 		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ? OR email = ?";
 

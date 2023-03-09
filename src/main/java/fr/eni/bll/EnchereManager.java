@@ -8,7 +8,15 @@ import fr.eni.bo.Utilisateur;
 
 public class EnchereManager {
 
-    private LocalDateTime dateEnchere;
+
+	public enum EtatVente {
+	    EN_VENTE,
+	    EN_ATTENTE_PAIEMENT,
+	    ENVOYE,
+	    RETIRE, EN_COURS;
+	}
+
+	private LocalDateTime dateEnchere;
     private int montantEnchere;
     private Utilisateur utilisateur;
     private ArticleVendu article;
