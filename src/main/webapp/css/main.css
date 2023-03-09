@@ -1,26 +1,17 @@
-
-/* Style pour les liens */
-a {
-	text-decoration: underline;
-	color: #FF7377;
-}
-
 /* Dégradé de couleurs pour le fond */
-header {
-	background-color: unset !important;
-}
 
 body {
-/*	background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF); */
+	background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF);
 	font-family: Arial, Helvetica, sans-serif;
-	color: white;
+    color: white;
 }
-
-#body {
+ 
+#body{
 	background-color: rgba(255, 255, 255, .4);
 	width: 80%;
 	min-height: 100%;
 }
+
 
 #header-connexion {
 	position: relative;
@@ -34,6 +25,10 @@ header div a {
 	transition: all .3s;
 }
 
+a{
+	text-decoration: underline;
+	color: #FF7377;
+}
 
 /* Style pour les boutons */
 .btn-primary {
@@ -53,51 +48,42 @@ input[type="text"] {
 	border-radius: 4px;
 }
 
+
 /* Style pour les formulaires */
 .form-control {
-
 	background-color: rgba(255, 255, 255, 0.8);
 	border-color: #cc0000;
-
 }
 
 /* Style pour les alertes */
 .alert {
-  background: #f8d7da;
-  border-color: #f5c6cb;
-  color: #721c24;
-}
-
-/* Style pour les titres */
-
-
-/* Style pour les en-têtes de tableau */
-.table th {
-  /*background-color: #cc0000;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-  color: white;*/
-	opacity: .7;
 	background: #f8d7da;
 	border-color: #f5c6cb;
 	color: #721c24;
 }
 
-
 /* Style pour les titres */
-h1, h2, h3 {
-	  color: Black;
+h1, h2 {
+	
 	text-align: center;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+h3 {
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	font-weight: bold;
 }
 
 h5 {
 	text-align: center;
+	
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 }
 
-h4 {
+h4{
+	
 	text-align: center;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
@@ -105,44 +91,9 @@ h4 {
 	/*margin: 250px;*/
 }
 
-p {
+p{
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 	margin: 5px;
-}
-
-/* Style pour les pages de profil utilisateur */
-.profile {
-
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-	opacity: .7;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-
-}
-
-/* Style pour les listes d'enchères */
-.auctions {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Style pour les pages de vente d'article */
-.sell-item {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Style pour les pages d'affichage de détails d'enchère */
-.auction-details {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	
 }

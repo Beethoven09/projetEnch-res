@@ -20,6 +20,7 @@
 *.rar
 
 # reglage ENI #
+<<<<<<< HEAD
 .settings
 */.settings
 */build
@@ -42,3 +43,15 @@ bin/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 >>>>>>> pauline_officiel
+=======
+/.settings
+.classpath
+.project
+*.xml
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+/build/
+/apache-tomcat-9.0.65
+>>>>>>> refs/remotes/origin/Beto

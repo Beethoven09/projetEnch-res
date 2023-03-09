@@ -141,6 +141,6 @@ public class UtilisateurManager {
 	private boolean isValidPostalCode(int cp) {
 		return false;
 	}
-
+ 
 	// Ajouter ici d'autres méthodes si besoin
 }
