@@ -25,38 +25,34 @@ public class UserDAO {
 		dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
 	}
 
-	/**
-	 * Récupère un ID en fonction d'un pseudo
+
+	/**			
+	 * Retourne un ID en fonction d'un pseudo
 	 * @param pseudo
 	 * @return id
 	 */
-	public int getUserIdByPseudo(String pseudo) {
-		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ?";
-		int id = 0;
+	public int getId(String login) {
+		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ? OR email = ?";
 
 		try(Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
-			stmt.setString(1, pseudo);
+			stmt.setString(1, login);
+			stmt.setString(2, login);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getResultSet();
 			if(rs.next()) {
-				id = rs.getInt(1);
+				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return id;
+		return 0;
 	}
 
-	/**
-	 * Retourne le mot de passe hashé d'un utilisateur en fonction d'un id
-	 * @param id
-	 * @return password
-	 */
-	public String getUserPasswordById(int id) {
-		final String REQUETE = "SELECT password FROM utilisateurs WHERE id = ?";
-		String password = null;
+	public String getSalt(int id) {
+		final String REQUETE = "SELECT salt FROM utilisateurs WHERE id = ?";
+		String salt = null;
 
 		try(Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
@@ -64,59 +60,13 @@ public class UserDAO {
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getResultSet();
 			if(rs.next()) {
-				password = rs.getString(1);
+				salt = rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return password;
-	}
-
-	/**			
-	 * Retourne un ID en fonction d'un pseudo
-	 * @param pseudo
-	 * @return id
-	 */
-	public int getIdByPseudo(String pseudo) {
-		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ?";
-
-		try(Connection conn = dataSource.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(REQUETE);
-			stmt.setString(1, pseudo);
-			stmt.executeUpdate();
-			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
-				return rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Retourne un ID en fonction d'un email
-	 * @param email
-	 * @return id
-	 */
-	public int getIdByEmail(String email) {
-		final String REQUETE = "SELECT id FROM utilisateurs WHERE email = ?";
-
-		try(Connection conn = dataSource.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(REQUETE);
-			stmt.setString(1, email);
-			stmt.executeUpdate();
-			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
-				return rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return 0;
+		return salt;
 	}
 
 	/**
@@ -124,7 +74,7 @@ public class UserDAO {
 	 * @param id
 	 * @return password
 	 */
-	public String getPasswordById(int id) {
+	public String getPassword(int id) {
 		final String REQUETE = "SELECT password FROM utilisateurs WHERE id = ?";
 		String password = null;
 
