@@ -3,7 +3,7 @@ package fr.eni.bo;
 import java.time.LocalDateTime;
 
 public class Enchere {
-
+	
 	
     private int id;
     private Utilisateur acheteur;

@@ -2,31 +2,47 @@ package fr.eni.bll;
 
 import fr.eni.bo.Enchere;
 import fr.eni.bo.Utilisateur;
+import fr.eni.bo.ArticleVendu;
 
 public class Acheter {
+    
+    private ArticleVendu articleEnVente;
+    private Enchere enchereActuelle;
 
-	private Object etatVente;
-	private Object enchereActuelle;
+    public void acheter(Utilisateur acheteur, int prix) throws BLLException {
+        // Vérification que l'article est en vente
+        if (articleEnVente.getEtatVente() != EtatVente.EN_VENTE) {
+            throw new BLLException("Cet article n'est pas en vente.");
+        }
 
-	public void acheter(Utilisateur acheteur, int prix) throws BLLException {
-		// TODO : Le code suivant comporte est en cours, celui-ci peut comporter des erreurs
+        // Vérification que le prix proposé est supérieur au prix de l'enchère actuelle
+        if (enchereActuelle != null && prix <= enchereActuelle.getMontantEnchere()) {
+            throw new BLLException("Le prix proposé est inférieur ou égal au prix de l'enchère actuelle.");
+        }
 
-		// Vérification que l'article est en vente
-		if (this.etatVente != EtatVente.EN_VENTE) {
-			throw new BLLException("Cet article n'est pas en vente.");
-		}
+        // Création de la nouvelle enchère
+        Enchere nouvelleEnchere = new Enchere(acheteur, articleEnVente, prix);
 
-		// Vérification que le prix proposé est supérieur au prix de l'enchère actuelle
-		if (this.enchereActuelle != null && prix <= this.enchereActuelle.getMontantEnchere()) {
-			throw new BLLException("Le prix proposé est inférieur ou égal au prix de l'enchère actuelle.");
-		}
+        // Mise à jour de l'article et de l'enchère associée
+        articleEnVente.setEtatVente(EtatVente.EN_COURS);
+        enchereActuelle = nouvelleEnchere;
+    }
 
-		// Création de la nouvelle enchère
-		Enchere nouvelleEnchere = new Enchere(acheteur, this, prix);
+    //Getters et Setters 
+    
+    public ArticleVendu getArticleEnVente() {
+        return articleEnVente;
+    }
 
-		// Mise à jour de l'article et de l'enchère associée
-		this.setEnchereActuelle(nouvelleEnchere);
-		this.setEtatVente(EtatVente.EN_COURS);
-	}
+    public void setArticleEnVente(ArticleVendu articleEnVente) {
+        this.articleEnVente = articleEnVente;
+    }
 
+    public Enchere getEnchereActuelle() {
+        return enchereActuelle;
+    }
+
+    public void setEnchereActuelle(Enchere enchereActuelle) {
+        this.enchereActuelle = enchereActuelle;
+    }
 }
