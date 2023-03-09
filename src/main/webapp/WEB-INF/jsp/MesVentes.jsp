@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ListeEncheres</title>
+<title>Mes ventes</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="css/main.css">
 </head>
@@ -98,22 +98,12 @@
 		<div class="d-flex justify-content-between">
 			<!-- Insertion des images -->
 			<div class="d-flex">
-				<img src="images/pc.jpg" alt="Pc gamer pour travailler"
-					width="150px">
+				<img src="images/fauteuil.jpg" alt="Fauteuil"
+					width="350">
 				<p class="ml-2">
-					<a href="#">Pc gamer pour travailler</a><br> Prix : 210 points<br>
-					Fin de l'enchère : 10/08/2018<br> vendeur: <a href="MonProfil"> Jojo44</a>
+					<a href="#">Fauteuil</a><br> Prix : 310 points<br>
+					Fin de l'enchère : 18/09/2018<br> vendeur: <a href="MonProfil"> NineJea</a>
 				</p>
-
-			</div>
-			<div class="d-flex">
-				<img src="images/rocket.jpg" alt="Rocket stove pour riz et pâtes"
-					width="150px">
-				<p class="ml-2">
-					<a href="MesVentes">Rocket stove pour riz et pâtes</a><br> Prix : 185
-					points<br> Fin de l'enchère : 09/08/2018<br> vendeur: <a href="MonProfil"> Jiji56</a>
-				</p>
-			</div>
 		</div>
 	</div>
 	</div>

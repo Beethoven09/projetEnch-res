@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class MotDePasseOublié
  */
 @WebServlet("/MotDePasseOublié")
-public class MotDePasseOublié extends HttpServlet {
+public class MotDePasseOublie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
        

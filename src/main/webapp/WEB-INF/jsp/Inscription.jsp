@@ -13,7 +13,7 @@
 <body>
 	<h1>ENI-Enchères</h1>
 	<h2>Mon profil</h2>
-	<form method="post" action="inscription" class="pt-5 pr-4">
+	<form method="post" action="Inscription" class="pt-5 pr-4">
 		<!-- Table pour mettre les infos en colonne -->
 
 		<div class="form-group">

@@ -1,8 +1,4 @@
 /* Dégradé de couleurs pour le fond */
-header {
-	background-color: unset !important;
-	
-}
 
 body {
 	background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF);
@@ -34,7 +30,6 @@ a{
 	text-decoration: underline;
 	color: #FF7377;
 }
-
 /* Style pour les boutons */
 .btn-primary {
 	background: linear-gradient(to bottom right, #0066cc, #cc0000);
@@ -68,11 +63,16 @@ input[type="text"] {
 }
 
 /* Style pour les titres */
-h1, h2, h3 {
+h1, h2 {
 	
 	text-align: center;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+h3 {
+	opacity: .7;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	font-weight: bold;
 }
 
 h5 {
@@ -94,46 +94,6 @@ p{
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 	margin: 5px;
 	
-}
-/* Style pour les en-têtes de tableau */
-.table th {
-	background-color: #cc0000;
-	opacity: .7;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-}
-
-/* Style pour les pages de profil utilisateur */
-.profile {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-	opacity: .7;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-}
-
-/* Style pour les listes d'enchères */
-.auctions {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Style pour les pages de vente d'article */
-.sell-item {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Style pour les pages d'affichage de détails d'enchère */
-.auction-details {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 

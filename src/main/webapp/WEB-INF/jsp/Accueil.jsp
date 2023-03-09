@@ -17,7 +17,7 @@
 	<header id="header-connexion">
 	<div class="text-right mr-2 mb-4 mt-1">
 			<!-- options utilisateur -->
-			<a href="inscription">S'inscrire</a> | <a href="Connexion">Se connecter</a>
+			<a href="Inscription">S'inscrire</a> | <a href="Login">Se connecter</a>
 		</div>
 
 		<h1>ENI-ENCHERES</h1>
@@ -49,7 +49,7 @@
 							<option>Informatique</option>
 							<option>Ameublement</option>
 							<option>Vêtement</option>
-							<option>Sport&Loisir</option>
+							<option>Sport&Loisirs</option>
 						</select>
 					</div>
 				</div>
