@@ -5,8 +5,10 @@ import java.util.List;
 import fr.eni.bo.ArticleVendu;
 import fr.eni.bo.Enchere;
 import fr.eni.bo.Utilisateur;
+import fr.eni.dal.DALException;
 
-public class RetirerArticle {
+public class RetirerArticle{
+
 	// TODO : Le code suivant comporte est en cours, celui-ci peut comporter des erreurs
 	
     public void retirerArticle(ArticleVendu article, Utilisateur vendeur) throws BLLException {
@@ -32,7 +34,7 @@ public class RetirerArticle {
 
             // Changement de l'état de vente de l'article à "Retiré"
             article.setEtatVente(EtatVente.RETIRE);
-            articleManager.updateArticle(article);
+            ArticleManager.updateArticle(article);
 
         } catch (DALException e) {
             throw new BLLException("Une erreur est survenue lors de la suppression des enchères associées à l'article.", e);

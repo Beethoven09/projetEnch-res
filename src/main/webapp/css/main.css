@@ -1,11 +1,17 @@
 
+/* Style pour les liens */
+a {
+	text-decoration: underline;
+	color: #FF7377;
+}
+
 /* Dégradé de couleurs pour le fond */
 header {
 	background-color: unset !important;
 }
 
 body {
-	background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF);
+/*	background: linear-gradient(45deg, rgb(0, 0, 0), #00BFFF); */
 	font-family: Arial, Helvetica, sans-serif;
 	color: white;
 }
@@ -28,10 +34,6 @@ header div a {
 	transition: all .3s;
 }
 
-a {
-	text-decoration: underline;
-	color: #FF7377;
-}
 
 /* Style pour les boutons */
 .btn-primary {
@@ -53,19 +55,37 @@ input[type="text"] {
 
 /* Style pour les formulaires */
 .form-control {
+
 	background-color: rgba(255, 255, 255, 0.8);
 	border-color: #cc0000;
+
 }
 
 /* Style pour les alertes */
 .alert {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* Style pour les titres */
+
+
+/* Style pour les en-têtes de tableau */
+.table th {
+  /*background-color: #cc0000;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+  color: white;*/
+	opacity: .7;
 	background: #f8d7da;
 	border-color: #f5c6cb;
 	color: #721c24;
 }
 
+
 /* Style pour les titres */
 h1, h2, h3 {
+	  color: Black;
 	text-align: center;
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
@@ -90,21 +110,17 @@ p {
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
 	margin: 5px;
 }
-/* Style pour les en-têtes de tableau */
-.table th {
-	background-color: #cc0000;
-	opacity: .7;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-}
 
 /* Style pour les pages de profil utilisateur */
 .profile {
+
 	background-color: rgba(255, 255, 255, 0.8);
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	opacity: .7;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+
 }
 
 /* Style pour les listes d'enchères */

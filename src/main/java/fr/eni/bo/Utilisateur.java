@@ -13,20 +13,10 @@ public class Utilisateur {
 	private String ville;
 	private int credit;
 	private int administrateur;
-
-	/**
-	 * @param pseudo
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param telephone
-	 * @param rue
-	 * @param cp
-	 * @param ville
-	 * @param credit
-	 * @param administrateur
-	 */
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
+    
+	
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
+		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -39,19 +29,19 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
-		this.id = id;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.cp = cp;
-		this.ville = ville;
-		this.credit = credit;
-		this.administrateur = administrateur;
-	}
+	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit,int administrateur) {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.telephone = telephone;
+        this.rue = rue;
+        this.cp = cp;
+        this.ville = ville;
+        this.credit = credit;
+        this.administrateur = administrateur;
+    }
 
 	public int getId() {
 		return id;
@@ -140,4 +130,6 @@ public class Utilisateur {
 	public void setAdministrateur(int administrateur) {
 		this.administrateur = administrateur;
 	}
+
 }
+

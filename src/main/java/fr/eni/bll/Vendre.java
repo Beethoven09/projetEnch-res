@@ -18,4 +18,6 @@ public class Vendre {
 		this.setEnchereActuelle(nouvelleEnchere);
 		this.setEtatVente(EtatVente.EN_VENTE);
 	}
+
 }
+

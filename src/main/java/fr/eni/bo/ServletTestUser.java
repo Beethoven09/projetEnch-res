@@ -9,8 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.bll.UtilisateurManager;
+import fr.eni.dal.SQLController;
+
 
 /**
  * Servlet implementation class ServletTestUser
@@ -25,10 +26,10 @@ public class ServletTestUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			if(UtilisateurManager.insertUtilisateur("Beto", "Beethoven", "Mirville", "exemple3@email.com", "+33612345678", "rue de truc", "motdepasse", 12345, "Nantes", 0, 0)) {
-				request.setAttribute("User", user);
-			}
-			
+
+			Utilisateur user = UtilisateurManager.insertUtilisateur("Sebsineat", "Rouillon", "Sébastien", "srouillon@icloud.com", "+33674611693", "1 rue de xxx", 12345, "Nantes", "Motdepasse");
+            request.setAttribute("User", user);
+
             request.getRequestDispatcher("/WEB-INF/jsp/testUtilisateur.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             throw new ServletException("Erreur lors de la récupération des exemples", e);
