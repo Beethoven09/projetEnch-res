@@ -2,18 +2,17 @@ package fr.eni.bo;
 
 public class Utilisateur {
 
-    private int id;
-    private String pseudo;
-    private String nom;
-    private String prenom;
-    private String email;
-    private String telephone;
-    private String rue;
-    private int cp;
-    private String ville;
-    private String password;
-    private int credit;
-    private int administrateur;
+	private int id;
+	private String pseudo;
+	private String nom;
+	private String prenom;
+	private String email;
+	private String telephone;
+	private String rue;
+	private int cp;
+	private String ville;
+	private int credit;
+	private int administrateur;
     
 	
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, int administrateur) {
@@ -30,7 +29,7 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit, String password,int administrateur) {
+	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, int credit,int administrateur) {
         this.id = id;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -41,7 +40,6 @@ public class Utilisateur {
         this.cp = cp;
         this.ville = ville;
         this.credit = credit;
-		this.password= password;
         this.administrateur = administrateur;
     }
 
@@ -117,14 +115,6 @@ public class Utilisateur {
 		this.ville = ville;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public int getCredit() {
 		return credit;
 	}
@@ -140,8 +130,6 @@ public class Utilisateur {
 	public void setAdministrateur(int administrateur) {
 		this.administrateur = administrateur;
 	}
-
- 
 
 }
 

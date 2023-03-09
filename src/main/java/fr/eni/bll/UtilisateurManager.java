@@ -10,7 +10,7 @@ import fr.eni.dal.UserDAO;
 
 public class UtilisateurManager {
 
-	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, int cp, String ville, String password, int credit) throws SQLException, NamingException {
+	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, int cp, String ville, String password) throws SQLException, NamingException {
 
 		// Vérification de la validité des données
 
@@ -54,9 +54,9 @@ public class UtilisateurManager {
 		String salt = passwordBuilder.split(";")[1];
 
 		// On construit l'utilisateur
-		Utilisateur user = new Utilisateur(pseudo, prenom, nom, email, telephone, rue, cp, ville, credit, 0);
+		Utilisateur user = new Utilisateur(pseudo, prenom, nom, email, telephone, rue, cp, ville, 0, 0);
 
-		// Insertion de l'utilisateur en base de données
+		// Insertion de l'utilisateur en BDD
 		if(sql.add(user, pass, salt)) {
 			return user;
 		} else {

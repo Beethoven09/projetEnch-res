@@ -3,14 +3,12 @@ package fr.eni.bo;
 import java.time.LocalDateTime;
 
 public class Enchere {
-	
-	
-    private int id;
-    private Utilisateur acheteur;
-    private ArticleVendu article;
-    private LocalDateTime dateEnchere;
-    private int montantEnchere;
 
+	private int id;
+	private Utilisateur acheteur;
+	private ArticleVendu article;
+	private LocalDateTime dateEnchere;
+	private int montantEnchere;
 
     public Enchere(ArticleVendu article, Utilisateur utilisateur, LocalDateTime dateEnchere, int montant) {
         this.article = article;
@@ -98,8 +96,4 @@ public class Enchere {
 	public void setMontantEnchere(int montantEnchere) {
 		this.montantEnchere = montantEnchere;
 	}
-
-
-
-
 }
