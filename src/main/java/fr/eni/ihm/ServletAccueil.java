@@ -1,38 +1,25 @@
-package fr.eni.bo;
+package fr.eni.ihm;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.bll.UtilisateurManager;
-
 /**
- * Servlet implementation class ServletTestUser
+ * Servlet implementation class ServletAppTest
  */
-@WebServlet("/ServletTestUser")
-public class ServletTestUser extends HttpServlet {
+@WebServlet("/accueil")
+public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			if(UtilisateurManager.insertUtilisateur("Beto", "Beethoven", "Mirville", "exemple3@email.com", "+33612345678", "rue de truc", "motdepasse", 12345, "Nantes", 0, 0)) {
-				request.setAttribute("User", user);
-			}
-			
-            request.getRequestDispatcher("/WEB-INF/jsp/testUtilisateur.jsp").forward(request, response);
-        } catch (SQLException | NamingException e) {
-            throw new ServletException("Erreur lors de la récupération des exemples", e);
-        }
+		request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp").forward(request, response);
+
 	}
 
 	/**

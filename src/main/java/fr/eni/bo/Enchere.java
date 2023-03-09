@@ -3,48 +3,57 @@ package fr.eni.bo;
 import java.time.LocalDateTime;
 
 public class Enchere {
-    private Article article;
-    private Utilisateur utilisateur;
-    private LocalDateTime dateEnchere;
-    private int montant;
 
-    public Enchere(Article article, Utilisateur utilisateur, LocalDateTime dateEnchere, int montant) {
-        this.article = article;
-        this.utilisateur = utilisateur;
-        this.dateEnchere = dateEnchere;
-        this.montant = montant;
-    }
+	private int id;
+	private Utilisateur acheteur;
+	private ArticleVendu article;
+	private LocalDateTime dateEnchere;
+	private int montantEnchere;
 
-    public Article getArticle() {
-        return article;
-    }
+	public Enchere(Utilisateur acheteur, ArticleVendu article, int montantEnchere) {
+		this.acheteur = acheteur;
+		this.article = article;
+		this.dateEnchere = LocalDateTime.now();
+		this.montantEnchere = montantEnchere;
+	}
 
-    public void setArticle(Article article) {
-        this.article = article;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-    }
+	public Utilisateur getAcheteur() {
+		return acheteur;
+	}
 
-    public LocalDateTime getDateEnchere() {
-        return dateEnchere;
-    }
+	public void setAcheteur(Utilisateur acheteur) {
+		this.acheteur = acheteur;
+	}
 
-    public void setDateEnchere(LocalDateTime dateEnchere) {
-        this.dateEnchere = dateEnchere;
-    }
+	public ArticleVendu getArticle() {
+		return article;
+	}
 
-    public int getMontant() {
-        return montant;
-    }
+	public void setArticle(ArticleVendu article) {
+		this.article = article;
+	}
 
-    public void setMontant(int montant) {
-        this.montant = montant;
-    }
+	public LocalDateTime getDateEnchere() {
+		return dateEnchere;
+	}
 
+	public void setDateEnchere(LocalDateTime dateEnchere) {
+		this.dateEnchere = dateEnchere;
+	}
+
+	public int getMontantEnchere() {
+		return montantEnchere;
+	}
+
+	public void setMontantEnchere(int montantEnchere) {
+		this.montantEnchere = montantEnchere;
+	}
 }

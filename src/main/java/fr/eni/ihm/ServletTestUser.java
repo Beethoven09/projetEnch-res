@@ -1,4 +1,4 @@
-package fr.eni.bo;
+package fr.eni.ihm;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.bll.UtilisateurManager;
+import fr.eni.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletTestUser
@@ -25,10 +26,11 @@ public class ServletTestUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			if(UtilisateurManager.insertUtilisateur("Beto", "Beethoven", "Mirville", "exemple3@email.com", "+33612345678", "rue de truc", "motdepasse", 12345, "Nantes", 0, 0)) {
+			// Mise en mémoire serveur de l'user
+			Utilisateur user = UtilisateurManager.insertUtilisateur("Celine", "Nom de famille", "Céline", "exemple5@email.com", "+33612345678", "rue de truc", 12345, "Nantes", "motdepasse", 0);
+			if(user != null) {
 				request.setAttribute("User", user);
 			}
-			
             request.getRequestDispatcher("/WEB-INF/jsp/testUtilisateur.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             throw new ServletException("Erreur lors de la récupération des exemples", e);
