@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
 import fr.eni.bo.Utilisateur;
@@ -39,20 +40,20 @@ public class UserDAO {
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setInt(1, idUser);
-			stmt.executeUpdate();
+			stmt.execute();
 			ResultSet rs = stmt.getResultSet();
 			if (rs.next()) {
-				int id = rs.getInt(1);
-				String pseudo = rs.getString(2);
-				String nom = rs.getString(3);
-				String prenom = rs.getString(4);
-				String email = rs.getString(5);
-				String tel = rs.getString(6);
-				String rue = rs.getString(7);
-				int cp = rs.getInt(8);
-				String ville = rs.getString(9);
-				int credit = rs.getInt(10);
-				int administrateur = rs.getInt(11);
+				int id = rs.getInt("id");
+				String pseudo = rs.getString("pseudo");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String email = rs.getString("email");
+				String tel = rs.getString("telephone");
+				String rue = rs.getString("rue");
+				int cp = rs.getInt("cp");
+				String ville = rs.getString("ville");
+				int credit = rs.getInt("credit");
+				int administrateur = rs.getInt("administrateur");
 
 				user = id + "," + pseudo + "," + nom + "," + prenom + "," + email + "," + tel + "," + rue + "," + cp
 						+ "," + ville + "," + credit + "," + administrateur;
@@ -74,21 +75,26 @@ public class UserDAO {
 
 	public int getId(String login) {
 		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ? OR email = ?";
-
+		int id = -1;
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setString(1, login);
 			stmt.setString(2, login);
-			stmt.executeUpdate();
+			stmt.execute();
 			ResultSet rs = stmt.getResultSet();
 			if (rs.next()) {
-				return rs.getInt(1);
+				id = rs.getInt("id");
+			} else {
+				id = -2;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			id = -3;
+			throw new IllegalArgumentException(
+					"Une erreur est survenue lors de la récupération de l'utilisateur dans la BDD : " + e);
 		}
 
-		return 0;
+		return id;
 	}
 
 	/**
@@ -104,10 +110,10 @@ public class UserDAO {
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setInt(1, id);
-			stmt.executeUpdate();
+			stmt.execute();
 			ResultSet rs = stmt.getResultSet();
 			if (rs.next()) {
-				salt = rs.getString(1);
+				salt = rs.getString("salt");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,10 +135,10 @@ public class UserDAO {
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setInt(1, id);
-			stmt.executeUpdate();
+			stmt.execute();
 			ResultSet rs = stmt.getResultSet();
 			if (rs.next()) {
-				password = rs.getString(1);
+				password = rs.getString("password");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

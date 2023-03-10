@@ -27,7 +27,7 @@ public class ConnexionManager {
 				throw new BLLException("Le mot de passe est incorrect");
 			}
 		} else {
-			throw new BLLException("Le compte n'existe pas.");
+			throw new BLLException("Le compte n'existe pas. ID: " + userId);
 		} 
 
 	}
