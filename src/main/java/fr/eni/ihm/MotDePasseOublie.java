@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MotDePasseOublié
  */
-@WebServlet("/MotDePasseOublié")
+@WebServlet("/MotDePasseOublie")
 public class MotDePasseOublie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -21,7 +21,7 @@ public class MotDePasseOublie extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/MotDePasseOublié.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/MotDePasseOublie.jsp").forward(request, response);
 		
 	}
 

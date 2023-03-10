@@ -12,14 +12,15 @@
 
 </head>
 <body>
-	<div class="container">
+   <div class="container">
 		<form method="post" action="Login">
 			<h1>ENI-Enchères</h1>
-			<input type="email" placeholder="Identifiant" required><br>
+            <input type="text" id="login" name="login" placeholder="identifiant" required><br>
 			<input type="password" placeholder="Mot de passe" required><br>
 			<input type="button" value="connexion">
-			<input type="checkbox" name="remember"> Se souvenir de moi<br>
-			<a href="MotDePasseOublié">Mot de passe oublié</a>
+			<input type="checkbox" id="rememberMe" name="rememberMe">
+			<label for="remeberMe"> Se souvenir de moi</label><br>
+			<a href="MotDePasseOublie">Mot de passe oublié</a>
 		</form>
 		<div>
 		<a href="Inscription" class="btn btn-outline-primary btn-block w-75 ml-5 mt-2 btn-xl">Créer un compte</a>

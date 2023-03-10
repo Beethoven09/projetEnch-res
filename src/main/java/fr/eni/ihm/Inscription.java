@@ -1,6 +1,9 @@
 package fr.eni.ihm;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,19 +47,17 @@ public class Inscription extends HttpServlet {
 	    String password = request.getParameter("mot_de_passe");
 	    String confirmation = request.getParameter("confirmation");
 	    
-	    Utilisateur user = UtilisateurManager.insertUtilisateur(pseudo, prenom, nom, email, telephone, rue, code_postal, ville, password);
+	    try {
+			Utilisateur user = UtilisateurManager.insertUtilisateur(pseudo, prenom, nom, email, telephone, rue, code_postal, ville, password);
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
-
-	  
-
-	   
-	   
-
-	    // Créer le profil de l'utilisateur avec un crédit initial de 0
-	    createUserProfile(username, email, password, 0);
+ 
 
 	    // Rediriger l'utilisateur vers la page d'accueil de la plateforme
-	    response.sendRedirect("ListeEncheres.jsp");
+	    response.sendRedirect("ListeEncheres");
 	  }
 	}
 
