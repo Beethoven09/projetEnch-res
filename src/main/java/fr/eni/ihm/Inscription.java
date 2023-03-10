@@ -17,7 +17,7 @@ import fr.eni.bo.Utilisateur;
  * Servlet implementation class Inscription
  */
 @WebServlet("/inscription")
-public class ServletInscription extends HttpServlet {
+public class Inscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -38,10 +38,10 @@ public class ServletInscription extends HttpServlet {
 			int cp = Integer.parseInt(request.getParameter("code_postal"));
 			String ville = request.getParameter("ville");
 			String password = request.getParameter("mot_de_passe");
+			String confirmPassword = request.getParameter("confirmation");
 
 			try {
-				Utilisateur user = UtilisateurManager.insertUtilisateur(pseudo, name, prenom, email, telephone, rue, cp,
-						ville, password);
+				Utilisateur user = UtilisateurManager.insertUtilisateur(pseudo, name, prenom, email, telephone, rue, cp, ville, password, confirmPassword);
 				request.setAttribute("User", user);
 				request.getRequestDispatcher("/WEB-INF/jsp/PageDeConnexion.jsp").forward(request, response);
 			} catch (SQLException | NamingException e) {
