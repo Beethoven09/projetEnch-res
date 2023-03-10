@@ -14,7 +14,7 @@ public class Password {
 	 * @param salt     le sel à utiliser pour le hash
 	 * @return le mot de passe hashé
 	 */
-	private static String hashPassword(String password, String salt) {
+	public static String hashPassword(String password, String salt) {
 		String generatedPassword = null;
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -39,11 +39,17 @@ public class Password {
 	 */
 	public static String genererPassword(String password) {
 
+		String salt = genererSalt();
+		String hashedPassword = hashPassword(password, salt);
+		return hashedPassword + ";" + salt;
+	}
+
+	public static String genererSalt() {
+
 		SecureRandom srnd = new SecureRandom();
 		byte[] salt = new byte[16];
 		srnd.nextBytes(salt);
 		String base64salt = Base64.getEncoder().encodeToString(salt);
-		String hashedPassword = hashPassword(password, base64salt);
-		return hashedPassword + ";" + base64salt;
+		return base64salt;
 	}
 }

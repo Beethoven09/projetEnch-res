@@ -111,7 +111,7 @@ public class UtilisateurManager {
 			throw new BLLException("L'utilisateur n'existe pas.");
 		}
 
-		if (!ArticleManager.articlesEnVenteParUtilisateur(user).isEmpty()) {
+		if (!ArticleVenduManager.articlesEnVenteParUtilisateur(user).isEmpty()) {
 			throw new BLLException("L'utilisateur a des articles en vente et ne peut pas être supprimé.");
 		}
 

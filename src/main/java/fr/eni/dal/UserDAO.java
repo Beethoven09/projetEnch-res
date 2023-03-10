@@ -71,6 +71,7 @@ public class UserDAO {
 	 * @param pseudo
 	 * @return id
 	 */
+
 	public int getId(String login) {
 		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ? OR email = ?";
 

@@ -14,8 +14,7 @@ public class ArticleVendu {
 	private Utilisateur vendeur;
 
 	// Constructeurs
-	public ArticleVendu() {
-	}
+	public ArticleVendu() {}
 
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, String etatVente) {
@@ -102,3 +101,4 @@ public class ArticleVendu {
 		this.vendeur = vendeur;
 	}
 }
+
