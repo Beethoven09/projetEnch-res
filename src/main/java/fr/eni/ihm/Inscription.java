@@ -16,49 +16,52 @@ import fr.eni.bo.Utilisateur;
 /**
  * Servlet implementation class Inscription
  */
-@WebServlet("/Inscription")
+
+@WebServlet("/inscription")
 public class Inscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/Inscription.jsp").forward(request, response);
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
+		if (request.getParameter("pseudo") != null) {
+			String pseudo = request.getParameter("pseudo");
+			String name = request.getParameter("nom");
+			String prenom = request.getParameter("prenom");
+			String email = request.getParameter("email");
+			String telephone = request.getParameter("telephone");
+			String rue = request.getParameter("rue");
+			int cp = Integer.parseInt(request.getParameter("code_postal"));
+			String ville = request.getParameter("ville");
+			String password = request.getParameter("mot_de_passe");
+			String confirmPassword = request.getParameter("confirmation");
+
+			try {
+				Utilisateur user = UtilisateurManager.insertUtilisateur(pseudo, name, prenom, email, telephone, rue, cp, ville, password, confirmPassword);
+				request.setAttribute("User", user);
+				request.getRequestDispatcher("/WEB-INF/jsp/PageDeConnexion.jsp").forward(request, response);
+			} catch (SQLException | NamingException e) {
+				throw new ServletException("Erreur lors de la récupération des exemples", e);
+			}
+		} else {
+			request.getRequestDispatcher("/WEB-INF/jsp/Inscription.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	// méthode doPost pour gérer les requêtes POST
-	  protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-	    throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	    // Récupérer les informations d'inscription entrées par l'utilisateur
-	    String pseudo = request.getParameter("pseudo");
-	    String nom = request.getParameter("nom");
-	    String prenom = request.getParameter("prenom");
-	    String email = request.getParameter("email");
-	    String telephone = request.getParameter("telephone");
-	    String rue = request.getParameter("rue");
-	    int code_postal = Integer.parseInt(request.getParameter("code_postal"));
-	    String ville = request.getParameter("ville");
-	    String password = request.getParameter("mot_de_passe");
-	    String confirmation = request.getParameter("confirmation");
-	    
-	    try {
-			Utilisateur user = UtilisateurManager.insertUtilisateur(pseudo, prenom, nom, email, telephone, rue, code_postal, ville, password);
-		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
- 
-
-	    // Rediriger l'utilisateur vers la page d'accueil de la plateforme
-	    response.sendRedirect("ListeEncheres");
-	  }
+		doGet(request, response);
 	}
 
-
+}
