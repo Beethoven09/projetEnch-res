@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Inscriptioné</title>
-<link rel="stylesheet" href="css/inscription.css">
+
+<title>Inscription</title>
+<link rel="stylesheet" href="css/Sign.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -13,7 +14,7 @@
 <body>
 	<h1>ENI-Enchères</h1>
 	<h2>Mon profil</h2>
-	<form method="post" action="inscription" class="pt-5 pr-4">
+	<form method="post" action="Inscription" class="pt-5 pr-4">
 		<!-- Table pour mettre les infos en colonne -->
 
 		<div class="form-group">

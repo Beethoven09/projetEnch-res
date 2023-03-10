@@ -10,8 +10,7 @@ import fr.eni.dal.UserDAO;
 
 public class UtilisateurManager {
 
-	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email,
-			String telephone, String rue, int cp, String ville, String password) throws SQLException, NamingException {
+	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, int cp, String ville, String password, String confirmPassword) throws SQLException, NamingException {
 
 		// Vérification de la validité des données
 
@@ -37,6 +36,7 @@ public class UtilisateurManager {
 	    } else if (!password.equals(confirmPassword)) {
 	        throw new IllegalArgumentException("Les mots de passe ne correspondent pas.");
 	    }
+
 
 		// Initialisation de la connexion à la base de données
 		UserDAO sql = new UserDAO();
@@ -145,6 +145,6 @@ public class UtilisateurManager {
 	private boolean isValidPostalCode(int cp) {
 		return false;
 	}
-
+ 
 	// Ajouter ici d'autres méthodes si besoin
 }
