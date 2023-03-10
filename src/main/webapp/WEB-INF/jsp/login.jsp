@@ -16,7 +16,7 @@
 		<form method="post" action="Login">
 			<h1>ENI-Enchères</h1>
             <input type="text" id="login" name="login" placeholder="identifiant" required><br>
-			<input type="password" placeholder="Mot de passe" required><br>
+			<input type="password" id="password" name="password" placeholder="Mot de passe" required><br>
 			<input type="button" value="connexion">
 			<input type="checkbox" id="rememberMe" name="rememberMe">
 			<label for="remeberMe"> Se souvenir de moi</label><br>

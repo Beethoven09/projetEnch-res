@@ -1,16 +1,17 @@
 package fr.eni.ihm;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+
+import com.mysql.cj.result.Row;
+
+import fr.eni.bll.ConnexionManager;
+import fr.eni.bll.UtilisateurManager;
+import fr.eni.bo.Utilisateur;
 
 /**
  * Servlet implementation class Connexion
@@ -18,15 +19,7 @@ import javax.sql.DataSource;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	 // La source de données (data source) pour la base de données
-	 private DataSource dataSource;
 
-	 @Override
-	 public void init() throws ServletException {
-	  super.init();
-	  dataSource = (DataSource) getServletContext().getAttribute("dataSource");
-	 }
 
 
 	/**
@@ -39,17 +32,37 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
-		// méthode doPost pour gérer les requêtes POST
-		  protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-		    throws ServletException, IOException {
-			  String login = request.getParameter("login");
-			  String password = request.getParameter("password");
-			  String rememberMe = request.getParameter("rememberMe");
-			  boolean remember = rememberMe != null && rememberMe.equals("on");
 
-		  }
-		
+	// méthode doPost pour gérer les requêtes POST
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+
+		try {
+			if(login != null && password != null) {
+				Utilisateur user = ConnexionManager.connecterUtilisateur(login, password);
+				request.setAttribute("User", user);
+				request.getRequestDispatcher("/WEB-INF/jsp/ListeEncheres.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new ServletException("Une erreur est survenue dans la servlet.");
+
+		}
 	}
+}
+
+
+
+
+
+
+
+
+
+
 
 
