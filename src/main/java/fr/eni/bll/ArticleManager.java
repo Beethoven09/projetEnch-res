@@ -10,7 +10,9 @@ import fr.eni.dal.UserDAO;
 
 public class ArticleManager {
 
-	public ArticleVendu ajouterArticle(String nom, String description, String categorie, int prixDepart, LocalDateTime dateOuverture, LocalDateTime dateFin, String adresseRetrait, Utilisateur vendeur) throws BLLException {
+	public ArticleVendu ajouterArticle(String nom, String description, String categorie, int prixDepart,
+			LocalDateTime dateOuverture, LocalDateTime dateFin, String adresseRetrait, Utilisateur vendeur)
+			throws BLLException {
 		// Vérification de la validité des données
 		if (nom == null || nom.trim().isEmpty()) {
 			throw new BLLException("Le nom de l'article ne peut pas être vide");
@@ -38,10 +40,9 @@ public class ArticleManager {
 		ArticleVendu article = new ArticleVendu();
 		try {
 			ArticleVenduDAO sql = new ArticleVenduDAO();
-			if (sql.add (article)) {
+			if (sql.add(article)) {
 				return article;
-			}
-			else {
+			} else {
 				throw new BLLException("Erreur lors de l'insertion de l'article en base de données");
 			}
 

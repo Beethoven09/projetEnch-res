@@ -3,8 +3,9 @@ package fr.eni.bll;
 import fr.eni.bo.Enchere;
 
 public class Vendre {
-	// TODO : Le code suivant comporte est en cours, celui-ci peut comporter des erreurs
-	
+	// TODO : Le code suivant comporte est en cours, celui-ci peut comporter des
+	// erreurs
+
 	public void Vendre(Utilisateur vendeur, int prixInitial) throws BLLException {
 		// Vérification que l'article n'est pas déjà en vente
 		if (this.etatVente != EtatVente.RETIRE && this.etatVente != EtatVente.NON_DEBUTE) {
@@ -20,4 +21,3 @@ public class Vendre {
 	}
 
 }
-

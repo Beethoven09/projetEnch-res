@@ -18,6 +18,7 @@ public class UserDAO {
 
 	/**
 	 * Initialise la connexion à la base de données
+	 * 
 	 * @throws NamingException
 	 */
 	public UserDAO() throws NamingException {
@@ -25,22 +26,61 @@ public class UserDAO {
 		dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
 	}
 
+	/**
+	 * Récupère les informations d'un utilisateur dans la base de données
+	 * 
+	 * @param id
+	 * @return Utilisateur
+	 */
+	public String getUser(int idUser) {
+		final String REQUETE = "SELECT id, pseudo, nom, prenom, email, telephone, rue, cp, ville, credit, administrateur FROM utilisateurs WHERE id = ?";
+		String user = null;
 
-	/**			
-	 * Retourne un ID en fonction d'un pseudo
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(REQUETE);
+			stmt.setInt(1, idUser);
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getResultSet();
+			if (rs.next()) {
+				int id = rs.getInt(1);
+				String pseudo = rs.getString(2);
+				String nom = rs.getString(3);
+				String prenom = rs.getString(4);
+				String email = rs.getString(5);
+				String tel = rs.getString(6);
+				String rue = rs.getString(7);
+				int cp = rs.getInt(8);
+				String ville = rs.getString(9);
+				int credit = rs.getInt(10);
+				int administrateur = rs.getInt(11);
+
+				user = id + "," + pseudo + "," + nom + "," + prenom + "," + email + "," + tel + "," + rue + "," + cp
+						+ "," + ville + "," + credit + "," + administrateur;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException(
+					"Une erreur est survenue lors de la récupération de l'utilisateur dans la BDD : " + e);
+		}
+		return user;
+	}
+
+	/**
+	 * Retourne l'ID du compte
+	 * 
 	 * @param pseudo
 	 * @return id
 	 */
 	public int getId(String login) {
 		final String REQUETE = "SELECT id FROM utilisateurs WHERE pseudo = ? OR email = ?";
 
-		try(Connection conn = dataSource.getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setString(1, login);
 			stmt.setString(2, login);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -50,16 +90,22 @@ public class UserDAO {
 		return 0;
 	}
 
+	/**
+	 * Retourne le salt du compte
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public String getSalt(int id) {
 		final String REQUETE = "SELECT salt FROM utilisateurs WHERE id = ?";
 		String salt = null;
 
-		try(Connection conn = dataSource.getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
+			if (rs.next()) {
 				salt = rs.getString(1);
 			}
 		} catch (SQLException e) {
@@ -71,6 +117,7 @@ public class UserDAO {
 
 	/**
 	 * Retourne le mot de passe hashé d'un utilisateur en fonction d'un id
+	 * 
 	 * @param id
 	 * @return password
 	 */
@@ -78,12 +125,12 @@ public class UserDAO {
 		final String REQUETE = "SELECT password FROM utilisateurs WHERE id = ?";
 		String password = null;
 
-		try(Connection conn = dataSource.getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
+			if (rs.next()) {
 				password = rs.getString(1);
 			}
 		} catch (SQLException e) {
@@ -95,6 +142,7 @@ public class UserDAO {
 
 	/**
 	 * Insère un utilisateur dans la base de données
+	 * 
 	 * @param user
 	 * @return boolean
 	 * 
@@ -132,7 +180,9 @@ public class UserDAO {
 	}
 
 	/**
-	 * Modifie un utilisateur. Pour modifier le mot de passe, utilisez la méthode {@code modifierPassword()}.
+	 * Modifie un utilisateur. Pour modifier le mot de passe, utilisez la méthode
+	 * {@code modifierPassword()}.
+	 * 
 	 * @param user
 	 * @return boolean
 	 */
@@ -151,40 +201,46 @@ public class UserDAO {
 			stmt.setString(8, user.getVille());
 			stmt.setInt(9, user.getCredit());
 			stmt.setInt(10, user.getAdministrateur());
-			if(stmt.execute()) {
+			if (stmt.execute()) {
 				System.out.println(stmt.getResultSet());
 				return true;
 			} else {
-				System.out.println("Une erreur est survenue lors de la modification du compte. [USER ID: " + user.getId() + "]");
-				throw new IllegalArgumentException("Une erreur est survenue lors de la modification de l'utilisateur dans la BDD.");
+				System.out.println(
+						"Une erreur est survenue lors de la modification du compte. [USER ID: " + user.getId() + "]");
+				throw new IllegalArgumentException(
+						"Une erreur est survenue lors de la modification de l'utilisateur dans la BDD.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new IllegalArgumentException("Une erreur est survenue lors de la modification de l'utilisateur dans la BDD : " + e);
+			throw new IllegalArgumentException(
+					"Une erreur est survenue lors de la modification de l'utilisateur dans la BDD : " + e);
 		}
 	}
 
 	public boolean update(Utilisateur user, String password) {
 		final String REQUETE = "UPDATE utilisateurs SET password = ? WHERE id = ?";
 
-		try(Connection conn = dataSource.getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setString(1, password);
 			stmt.setInt(2, user.getId());
-			if(stmt.execute()) {
+			if (stmt.execute()) {
 				return true;
 			} else {
-				throw new IllegalArgumentException("Une erreur est survenue lors de la modification du mot de passe dans la BDD.");
+				throw new IllegalArgumentException(
+						"Une erreur est survenue lors de la modification du mot de passe dans la BDD.");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new IllegalArgumentException("Une erreur est survenue lors de la modification du mot de passe dans la BDD : " + e);
+			throw new IllegalArgumentException(
+					"Une erreur est survenue lors de la modification du mot de passe dans la BDD : " + e);
 		}
 	}
 
 	/**
 	 * Supprime un utilisateur.
+	 * 
 	 * @param user
 	 * @return boolean
 	 */
@@ -194,11 +250,12 @@ public class UserDAO {
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(REQUETE);
 			stmt.setInt(1, user.getId());
-			if(stmt.execute()) {
+			if (stmt.execute()) {
 				System.out.println(stmt.getResultSet());
 				return true;
 			} else {
-				throw new IllegalArgumentException("Une erreur est survenue lors de la suppression de l'utilisateur dans la BDD.");
+				throw new IllegalArgumentException(
+						"Une erreur est survenue lors de la suppression de l'utilisateur dans la BDD.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -208,6 +265,7 @@ public class UserDAO {
 
 	/**
 	 * Vérifie si le pseudo est existant
+	 * 
 	 * @param email
 	 * @return boolean
 	 */
@@ -219,9 +277,9 @@ public class UserDAO {
 			stmt.setString(1, pseudo);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
+			if (rs.next()) {
 				int nb = rs.getInt(1);
-				if(nb > 0) {
+				if (nb > 0) {
 					return true;
 				} else {
 					return false;
@@ -237,6 +295,7 @@ public class UserDAO {
 
 	/**
 	 * Vérifie si l'adresse email est existante
+	 * 
 	 * @param email
 	 * @return boolean
 	 */
@@ -248,9 +307,9 @@ public class UserDAO {
 			stmt.setString(1, email);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
-			if(rs.next()) {
+			if (rs.next()) {
 				int nb = rs.getInt(1);
-				if(nb > 0) {
+				if (nb > 0) {
 					return true;
 				} else {
 					return false;

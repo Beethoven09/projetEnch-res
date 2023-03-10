@@ -9,12 +9,8 @@ import fr.eni.bo.Utilisateur;
 import fr.eni.dal.DALException;
 import fr.eni.dal.DAOFactory;
 
-
-
 public class Encherir {
-	
-	
-	
+
 	public void Encherir(ArticleVendu article, Utilisateur acheteur, int montant) throws BLLException {
 		// Vérification que l'article est en cours d'enchères
 		if (article.getEtatVente() != EtatVente.EN_COURS) {

@@ -9,8 +9,9 @@ public class Password {
 
 	/**
 	 * Méthode pour hasher un mot de passe avec un sel (salt).
+	 * 
 	 * @param password le mot de passe à hasher
-	 * @param salt le sel à utiliser pour le hash
+	 * @param salt     le sel à utiliser pour le hash
 	 * @return le mot de passe hashé
 	 */
 	private static String hashPassword(String password, String salt) {
@@ -20,7 +21,7 @@ public class Password {
 			md.update(salt.getBytes());
 			byte[] bytes = md.digest(password.getBytes());
 			StringBuilder sb = new StringBuilder();
-			for (int i=0; i<bytes.length; i++) {
+			for (int i = 0; i < bytes.length; i++) {
 				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 			}
 			generatedPassword = sb.toString();
@@ -32,6 +33,7 @@ public class Password {
 
 	/**
 	 * Permet de générer un mot de passer crypté.
+	 * 
 	 * @param password
 	 * @return password;hash
 	 */
@@ -45,4 +47,3 @@ public class Password {
 		return hashedPassword + ";" + base64salt;
 	}
 }
-

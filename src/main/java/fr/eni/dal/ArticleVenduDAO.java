@@ -18,7 +18,6 @@ public class ArticleVenduDAO {
 		dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_cnx");
 	}
 
-
 	List<ArticleVendu> selectAll() throws DALException;
 
 	ArticleVendu selectById(int id) throws DALException;
@@ -34,5 +33,3 @@ public class ArticleVenduDAO {
 	List<ArticleVendu> selectByNom(String nomArticle) throws DALException;
 
 }
-
-
