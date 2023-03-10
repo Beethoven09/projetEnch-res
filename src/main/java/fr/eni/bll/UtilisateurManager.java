@@ -10,7 +10,8 @@ import fr.eni.dal.UserDAO;
 
 public class UtilisateurManager {
 
-	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, int cp, String ville, String password) throws SQLException, NamingException {
+	public static Utilisateur insertUtilisateur(String pseudo, String prenom, String nom, String email,
+			String telephone, String rue, int cp, String ville, String password) throws SQLException, NamingException {
 
 		// Vérification de la validité des données
 
@@ -59,7 +60,7 @@ public class UtilisateurManager {
 		Utilisateur user = new Utilisateur(pseudo, prenom, nom, email, telephone, rue, cp, ville, 0, 0);
 
 		// Insertion de l'utilisateur en BDD
-		if(sql.add(user, pass, salt)) {
+		if (sql.add(user, pass, salt)) {
 			return user;
 		} else {
 			throw new IllegalArgumentException("Une erreur est survenue lors de l'ajout à la BDD.");
@@ -67,8 +68,9 @@ public class UtilisateurManager {
 
 	}
 
-
-	public boolean modifierUtilisateur(Utilisateur user, String pseudo, String nom, String prenom, String email, String telephone, String rue, int cp, String ville, String password, int administrateur) throws SQLException, NamingException {
+	public boolean modifierUtilisateur(Utilisateur user, String pseudo, String nom, String prenom, String email,
+			String telephone, String rue, int cp, String ville, String password, int administrateur)
+			throws SQLException, NamingException {
 		// Vérification de la validité des données
 		if (!isValidPseudo(pseudo)) {
 			throw new IllegalArgumentException("Le pseudo doit contenir uniquement des caractères alphanumériques.");
@@ -85,7 +87,7 @@ public class UtilisateurManager {
 
 		// Modification de l'utilisateur en mémoire
 		UserDAO sql = new UserDAO();
-		if(sql.update(user)) {
+		if (sql.update(user)) {
 			user.setPseudo(pseudo);
 			user.setNom(nom);
 			user.setPrenom(prenom);
@@ -98,13 +100,13 @@ public class UtilisateurManager {
 
 			return true;
 		} else {
-			throw new IllegalArgumentException("Une erreur est survenue lors de la modification de l'utilisateur dans la base de données.");
+			throw new IllegalArgumentException(
+					"Une erreur est survenue lors de la modification de l'utilisateur dans la base de données.");
 		}
 
 	}
 
-
-	public boolean supprimerUtilisateur(Utilisateur user) throws BLLException, NamingException{
+	public boolean supprimerUtilisateur(Utilisateur user) throws BLLException, NamingException {
 		// Vérification de l'existence de l'utilisateur
 		Utilisateur utilisateurBdd = UtilisateurManager.getUtilisateurById(user.getId());
 		if (utilisateurBdd == null) {
@@ -122,7 +124,7 @@ public class UtilisateurManager {
 		return true;
 	}
 
-	//methodes
+	// methodes
 
 	private static Utilisateur getUtilisateurById(int id) {
 		return null;

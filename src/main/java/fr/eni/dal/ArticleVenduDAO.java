@@ -158,8 +158,3 @@ import fr.eni.bo.Categorie;
 			return false;
 		}
 	}
-
-
-
-
-
