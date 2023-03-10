@@ -29,11 +29,13 @@ public class UtilisateurManager {
 		}
 
 		// Vérification du mot de passe
-		if (password == null || password.trim().isEmpty()) {
-			throw new IllegalArgumentException("Le mot de passe est obligatoire.");
-		} else if (password.length() < 8) {
-			throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
-		}
+	    if (password == null || password.trim().isEmpty()) {
+	        throw new IllegalArgumentException("Le mot de passe est obligatoire.");
+	    } else if (password.length() < 8) {
+	        throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
+	    } else if (!password.equals(confirmPassword)) {
+	        throw new IllegalArgumentException("Les mots de passe ne correspondent pas.");
+	    }
 
 		// Initialisation de la connexion à la base de données
 		UserDAO sql = new UserDAO();
